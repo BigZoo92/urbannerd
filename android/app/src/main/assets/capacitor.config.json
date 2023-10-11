@@ -1,13 +1,8 @@
 {
-	"appId": "com.example.app",
-	"appName": "nextjs-tailwind-capacitor",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
-	"webDir": "out",
-	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 0
-		}
-	},
-	"cordova": {}
+	"appId": "urbarnnerd.app",
+	"appName": "urbannerd",
+	"webDir": "public",
+	"server": {
+		"androidScheme": "https"
+	}
 }
