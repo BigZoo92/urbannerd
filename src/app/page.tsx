@@ -1,7 +1,17 @@
+import Card from "./components/Card";
+
 export default function Home() {
   return (
     <>
-      <main></main>
+      <main>
+        <section className="feed">
+          <Card></Card>
+          <Card></Card>
+          <Card></Card>
+          <Card></Card>
+          <Card></Card>
+        </section>
+      </main>
     </>
   );
 }

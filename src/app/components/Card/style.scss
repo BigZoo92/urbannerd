@@ -1,0 +1,48 @@
+.card{
+    display: flex;
+    width: 100%;
+    height: 600px;
+    border-bottom: 1px solid $color_blue;
+    padding-block: $marge;
+    .cd_pp{
+        width: calc($marge * 2);
+        height: 100%;
+        display: flex;
+        padding-right: calc($marge / 2);
+        justify-content: center;
+        align-items: flex-start;
+        .pp{
+            border-radius: 50%;
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: $color_blue;
+        }
+    }
+    .cd_card_info{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-left: calc($marge / 2);
+        width: calc(100% - calc($marge * 2));
+        gap: calc($marge / 2);
+        .card_img{
+            height: 70%;
+            width: 100%;
+            background-color: $color_blue;
+            border-radius: 25px;
+        }
+        .card_actions{
+            height: 10%;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: calc($marge / 2);
+        }
+        .comments{
+            height: 20%;
+            width: 100%;
+        }
+    }
+}

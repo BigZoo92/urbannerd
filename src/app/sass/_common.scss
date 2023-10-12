@@ -7,28 +7,30 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   min-height: 100dvh;
+  width: 100%;
+  
 }
 
-// body {
-//   margin: 0;
-//   display: flex;
-//   align-items: center;
-//   background: $color-white;
-//   flex-direction: column;
-//   font-family: $font-common;
-//   background: $color-white;
-//   color: $color-purple;
-//   font-size: clamp(15px, 0.75vw, 18px);
-// }
+body {
+  margin: 0;
+  padding: $marge;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: $color_dark;
+  position: relative;
+  font-size: clamp(15px, 0.75vw, 18px);
+}
 
-// main {
-//   width: $width;
-//   height: $height-main;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-// }
+main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
 
 // ::-moz-selection {
 //   color: $color-orange !important;
