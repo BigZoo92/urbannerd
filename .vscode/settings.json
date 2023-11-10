@@ -1,0 +1,25 @@
+{
+  // Active ESLint pour les fichiers JavaScript et TypeScript
+  "eslint.enable": true,
+  // Active le formatage automatique avec Prettier
+  "editor.formatOnSave": true,
+  // Configure ESLint comme formateur par défaut
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // Désactive le formatage automatique de VS Code pour éviter les conflits avec Prettier
+  "editor.formatOnSaveTimeout": 1000,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "files.autoSave": "off",
+  "eslint.workingDirectories": ["./frontend"],
+  "VsCodeTaskButtons.showCounter": true
+}
