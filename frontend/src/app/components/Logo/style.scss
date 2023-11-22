@@ -1,0 +1,21 @@
+@import '../../sass/variables';
+
+.logo {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 4vw solid $color_blue;
+  background-color: $color_dark;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    aspect-ratio: 1/1;
+    width: 40%;
+    border-radius: 50%;
+    border: 2vw solid $color_blue;
+    outline: 2vw solid $color_dark;
+    background-color: $color_dark;
+  }
+}

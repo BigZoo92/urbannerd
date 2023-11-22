@@ -5,6 +5,7 @@ import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
 
 import { AuthSchemaType } from '../types';
+import { createPost } from './post/createPost';
 
 declare global {
   namespace Express {
@@ -60,5 +61,8 @@ router.post('/auth/login', (req, res) => login(req, res));
 
 //GET USER INFO
 router.get('/info/user', (req, res) => getUserInfo(req, res));
+
+//POST ROUTE
+router.post('/post', (req, res) => createPost(req, res));
 
 export default router;
