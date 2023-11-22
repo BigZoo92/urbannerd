@@ -13,10 +13,30 @@ enum StatusUser {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  username String    @unique
-  email    String    @unique
+  id       Int        @id @default(autoincrement())
+  username String     @unique
+  email    String     @unique
   password String
-  status   StatusUser    
+  status   StatusUser
+  posts    Post[]
+  likedTags Tag[]
 }
 
+model Post {
+  id        Int      @id @default(autoincrement())
+  content   String?
+  videos    String[] @default([])
+  images    String[] @default([]) 
+  model3D   String?
+  tags      Tag[]
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  posts Post[]
+  users User[]
+}
