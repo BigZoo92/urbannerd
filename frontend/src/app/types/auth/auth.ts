@@ -24,6 +24,7 @@ export const SignupSchema = z.object({
   username: z.string().min(4),
   email: z.string().email(),
   password: z.string().min(4),
+  confirmPassword: z.string(),
 });
 
 export type SignupSchemaType = z.TypeOf<typeof SignupSchema>;

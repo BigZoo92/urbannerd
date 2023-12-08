@@ -14,7 +14,11 @@ export const signup = async (
   res: Response,
 ) => {
   const { username, email, password }: SignupSchemaType = req.body;
-
+  console.log({
+    username,
+    email,
+    password,
+  })
   try {
     SignupSchema.parse({
       username,

@@ -42,7 +42,7 @@ export const confirmSignup = async (req: Request, res: Response) => {
     });
 
     req.session.user = existingUser;
-    res.redirect('http://localhost:3000/dashboard');
+    res.redirect('http://localhost:3000');
   } catch (error) {
     console.error("Erreur lors de la confirmation d'inscription :", error);
     res

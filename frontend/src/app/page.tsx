@@ -1,7 +1,17 @@
+'use client';
+
 import Card from './components/Card';
+import { PersonIcons } from './components/Icons';
+import Loader from './components/Loader';
+import { colors } from './constant';
+import { useAuthContext } from './provider/AuthProvider';
 
 export default function Home() {
-  return (
+  const { loading } = useAuthContext()
+
+  return loading ? (
+    <Loader></Loader>
+  ) : (
     <>
       <main>
         <section className="feed">
@@ -13,5 +23,5 @@ export default function Home() {
         </section>
       </main>
     </>
-  );
+  )
 }

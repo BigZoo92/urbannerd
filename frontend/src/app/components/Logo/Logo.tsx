@@ -1,9 +1,10 @@
 import './style.scss'
 
-const Logo = ({width}: {width: number}) => {
-    console.log(width)
+const Logo = () => {
     return(
-        <div className="logo" style={{width: `${width}%`}}></div>
+        <div className="logo">
+            <div className='logo_bis'></div>
+        </div>
     )
 }
 

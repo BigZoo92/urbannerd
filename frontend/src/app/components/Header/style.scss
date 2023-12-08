@@ -1,0 +1,29 @@
+header {
+  height: 75px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $marge * 2;
+  background-color: $color_dark;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  nav {
+    width: 100%;
+    ul {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  aside {
+    width: 75%;
+    position: fixed;
+    height: 100dvh;
+    background-color: $color_purple;
+    top: 0;
+    transition: all ease-in-out 0.3s;
+  }
+}

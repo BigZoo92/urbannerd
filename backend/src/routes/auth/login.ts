@@ -27,6 +27,7 @@ export const login = async (
     }
 
     req.session.user = user;
+    req.session.save()
     res.status(200).json({ user: req.session.user, userExist: true });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);
