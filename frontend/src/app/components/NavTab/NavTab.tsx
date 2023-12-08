@@ -8,12 +8,12 @@ import { usePathname } from 'next/navigation';
 const NavTab = () => {
   const pathname = usePathname();
   return (
-    <header>
+    <footer>
       <nav>
         <ul>
           <span
             className={
-              pathname === '/shop' ? 'border_header active' : 'border_header'
+              pathname === '/shop' ? 'border_footer active' : 'border_footer'
             }
           ></span>
           <li>
@@ -42,7 +42,7 @@ const NavTab = () => {
           </li>
         </ul>
       </nav>
-    </header>
+    </footer>
   );
 };
 

@@ -1,12 +1,12 @@
 import React from "react";
 import './style.scss'
-import Logo from "../components/Logo";
+import AuthForm from "../components/AuthForm";
 
 const Home = () => {
     return (
       <>
         <main className="auth_main">
-          <Logo width={30}></Logo>
+          <AuthForm></AuthForm>
         </main>
       </>
     );

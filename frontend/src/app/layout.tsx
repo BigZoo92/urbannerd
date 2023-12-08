@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import NavTab from './components/NavTab';
 import './sass/main.scss';
+import { AuthProvider } from './provider/AuthProvider';
+import Header from './components/Header';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['100', '500'] });
 
@@ -14,8 +16,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        {children}
-        <NavTab></NavTab>
+        <AuthProvider>
+          <Header></Header>
+          {children}
+          <NavTab></NavTab>
+        </AuthProvider>
       </body>
     </html>
   );

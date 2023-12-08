@@ -1,14 +1,11 @@
-import { LoginSchema, LoginSchemaType } from '../../types';
+export const logout = async (): Promise<void> => {
 
-export const login = async (formData: LoginSchemaType): Promise<void> => {
-  LoginSchema.parse(formData);
   try {
-    const response = await fetch('http://localhost:4000/api/auth/login', {
-      method: 'POST',
+    const response = await fetch('http://localhost:4000/api/auth/logout', {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
       credentials: "include"
     });
 

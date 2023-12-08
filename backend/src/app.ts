@@ -10,7 +10,7 @@ import { AuthSchemaType } from './types';
 
 declare module 'express-session' {
   interface Session {
-    user: AuthSchemaType;
+    user: AuthSchemaType | null;
   }
 }
 
@@ -19,19 +19,27 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// MIDDLEWARE
-app.use(helmet());
-app.use(cookieParser(secret));
-app.use(cors(corsOptions));
-
 // SESSION
+app.use(cookieParser(secret));
 app.use(
   session({
     secret: secret,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      path    : '/',
+      secure: false, // true en production, false en développement
+      maxAge: 24 * 60 * 60 * 1000, // Durée de vie du cookie en millisecondes
+      httpOnly: true,
+    },
   }),
 );
+
+// MIDDLEWARE
+app.use(helmet());
+app.use(cors(corsOptions));
+
+
 
 // BACKEND'S HOME
 app.get('/', (_, res) => {

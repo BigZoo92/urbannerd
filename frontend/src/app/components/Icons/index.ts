@@ -5,3 +5,6 @@ export * from './ChatCircle';
 export * from './HeartStraight';
 export * from './Bookmark';
 export * from './UserCircle';
+export * from './Person';
+export * from './Settings';
+export * from './SignOut';
