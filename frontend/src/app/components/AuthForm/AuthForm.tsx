@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LoginSchemaType, SignupSchemaType } from '../../types';
 
-import Logo from '../Logo';
 import './style.scss';
 import { login, signup } from '@/app/utils/auth';
 import { PlanetIcons } from '../Icons';

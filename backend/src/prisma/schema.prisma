@@ -13,30 +13,62 @@ enum StatusUser {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  username String     @unique
-  email    String     @unique
-  password String
-  status   StatusUser
-  posts    Post[]
-  likedTags Tag[]
+  id          Int         @id @default(autoincrement())
+  username    String      @unique
+  email       String      @unique
+  password    String
+  status      StatusUser
+  posts       Post[]
+  likedTags   Tag[]
+  comments    Comment[]
+  postLikes   PostLike[]
+  postReposts PostRepost[]
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  content   String?
-  videos    String[] @default([])
-  images    String[] @default([]) 
-  model3D   String?
-  tags      Tag[]
-  createdAt DateTime @default(now())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  id          Int        @id @default(autoincrement())
+  content     String?
+  videos      String[]   @default([])
+  images      String[]   @default([]) 
+  model3D     String[]   @default([]) 
+  tags        Tag[]
+  createdAt   DateTime   @default(now())
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id])
+  comments    Comment[]
+  postLikes   PostLike[]
+  postReposts PostRepost[]
 }
 
 model Tag {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id    Int    @id @default(autoincrement())
+  name  String @unique
   posts Post[]
   users User[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String?
+  createdAt DateTime @default(now())
+  userId    Int
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+model PostLike {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+model PostRepost {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
 }

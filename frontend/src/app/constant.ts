@@ -1,7 +1,7 @@
 const colors = {
-  colorDark: '#27005D',
-  colorPurple: '#9400FF',
-  colorBlue: '#AED2FF',
+  colorDark: '#181a20',
+  colorPurple: '#ff4d67',
+  colorBlue: '#ff8a9b',
   colorWhite: '#E4F1FF',
 };
 

@@ -7,6 +7,10 @@ import dotenv from 'dotenv';
 import router from './routes/routes';
 import { corsOptions, port, secret } from './constant';
 import { AuthSchemaType } from './types';
+import path from 'path';
+import compression from 'compression';
+import morgan from 'morgan';
+
 
 declare module 'express-session' {
   interface Session {
@@ -17,6 +21,7 @@ declare module 'express-session' {
 // INIT
 dotenv.config();
 const app = express();
+// JSON FORMAT
 app.use(express.json());
 
 // SESSION
@@ -29,15 +34,20 @@ app.use(
     cookie: {
       path    : '/',
       secure: false, // true en production, false en développement
-      maxAge: 24 * 60 * 60 * 1000, // Durée de vie du cookie en millisecondes
+      maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
     },
   }),
 );
 
 // MIDDLEWARE
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: false,}));
+app.use(morgan('combined'));
+app.use(compression());
 app.use(cors(corsOptions));
+
+//STATICS ASSETS
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 
 
