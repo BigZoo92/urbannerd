@@ -8,3 +8,8 @@ export * from './UserCircle';
 export * from './Person';
 export * from './Settings';
 export * from './SignOut';
+export * from './PencilSimpleLine';
+export * from './Video';
+export * from './ArrowLeft';
+export * from './Cube';
+
