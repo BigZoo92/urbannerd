@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Card from './components/Card';
 import { PersonIcons } from './components/Icons';
 import Loader from './components/Loader';
-import PostForm from './components/PostForm';
+import PostForm from './components/PostForm/PostForm';
 import { colors } from './constant';
 import { useAuthContext } from './provider/AuthProvider';
 import { getAllPosts } from './utils';

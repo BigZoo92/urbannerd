@@ -12,4 +12,5 @@ export * from './PencilSimpleLine';
 export * from './Video';
 export * from './ArrowLeft';
 export * from './Cube';
+export * from './Image';
 

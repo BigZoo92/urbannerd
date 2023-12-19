@@ -1,90 +1,115 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { PostSchemaType } from '@/app/types';
+import React, { useRef, useState } from 'react';
 
 import './style.scss';
 
-import { PencilSimpleLineIcons } from '@/app/components/Icons';
+import { ArrowLeftIcons, CubeIcons, ImageIcons, PencilSimpleLineIcons, VideoIcons } from '@/app/components/Icons';
 import { colors } from '@/app/constant';
+import { PostSchemaType } from '@/app/types';
+import { useForm } from 'react-hook-form';
+import { captureModelFrame } from './captureModelFrame';
+import { captureVideoFrame } from './captureVideoFrame';
 import { onSubmit } from './onSubmit';
 
 const PostForm = () => {
   const [isShow, setIsShow] = useState(false);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const { register, handleSubmit, formState: { errors } } = useForm<PostSchemaType>();
+  const filesRef = useRef<HTMLInputElement>(null)
+
+  const openFileUpload = () => {
+    if (filesRef.current) {
+      filesRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFiles = Array.from(event.target.files);
+      setFiles((prev) => [...prev, ...newFiles].slice(0, 4));
+      for (const file of newFiles) {
+        let previewUrl: any
+        if (file.type.startsWith('video/')) {
+          previewUrl = await captureVideoFrame(file);
+        } else if (file.name.endsWith('.gltf') || file.name.endsWith('.glb')) {
+          const modelUrl = URL.createObjectURL(file); 
+          previewUrl = await captureModelFrame(modelUrl);
+        } else {
+          previewUrl = URL.createObjectURL(file); 
+        }
+        setPreviews(prev => [...prev, previewUrl]);
+      }
+    }
+  };
+
+  const handleRemovePreview = (indexToRemove: number) => {
+    setPreviews((prev) => prev.filter((_, index) => index !== indexToRemove));
+    setFiles((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
 
   return (
-    <section className="cd_createPost">
-      <span onClick={() => setIsShow(!isShow)}>
-        <PencilSimpleLineIcons
-          iconProps={{
-            size: 25,
-            color: colors.colorWhite
-          }}
-        />
+    <>
+    {!isShow && (
+      <span onClick={() => setIsShow(!isShow)} className='openForm'>
+      <PencilSimpleLineIcons
+        iconProps={{
+          size: 25,
+          color: colors.colorWhite,
+          onClick: () => setIsShow(!isShow)
+        }}
+      />
       </span>
-      <aside style={{ transform: `translateY(${isShow ? 0 : '100dvh'})` }}>
-        <form onSubmit={handleSubmit(onSubmit)} style={{ opacity: `${isShow ? 1 : 0}` }}>
-          <label>
-            Content
-            <input
-              type="text"
-              {...register('content', { required: 'This field is required' })}
-            />
-            {errors && errors.content && (
-              <span>{errors.content.message}</span>
-            )}
-          </label>
-          <label>
-            Videos (MP4, max 4)
+    )}
+    {isShow && (
+    <form onSubmit={handleSubmit((formData) => {
+      onSubmit(formData, files)
+      setIsShow(!isShow)
+      })} 
+      className="cd_createPost"
+    >
+      <nav>
+        <ArrowLeftIcons 
+        iconProps={{
+              size: 32,
+              color: colors.colorWhite,
+              onClick: () => setIsShow(!isShow)
+            }}></ArrowLeftIcons>
+        <input type='submit' value={'Post'}></input>
+      </nav>
+      <textarea id="content" cols={30} rows={8} placeholder='What is happening ?!' {...register('content')}></textarea>
+      <div className='action_post_form'>
+      <ImageIcons 
+        iconProps={{
+              size: 32,
+              color: colors.colorPurple,
+              onClick: () => openFileUpload()
+            }}></ImageIcons>
             <input
               type="file"
-              accept=".mp4"
-              {...register('videos')}
+              accept=".gltf, .glb, .webp, .jpg, .png, .mp4"
+              {...register('files')}
+              ref={filesRef}
+              onChange={handleFileChange}
               multiple
+              max={4}
             />
-            {errors && errors.videos && (
-              <span>{errors.videos.message}</span>
-            )}
-          </label>
-          <label>
-            Images (WEBP, max 4)
-            <input
-              type="file"
-              accept=".webp"
-              {...register('images')}
-              multiple
-            />
-            {errors && errors.images && (
-              <span>{errors.images.message}</span>
-            )}
-          </label>
-          <label>
-            Model3D (GLTF/GLB)
-            <input
-              type="file"
-              accept=".gltf, .glb"
-              {...register('model3D')}
-            />
-            {errors && errors.model3D && (
-              <span>{errors.model3D.message}</span>
-            )}
-          </label>
-          <label>
-            Tags
-            <input
-              type="text"
-              {...register('tags')}
-            />
-            {errors && errors.content && (
-              <span>{errors.content.message}</span>
-            )}
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-      </aside>
-    </section>
+      </div>
+      <div className='post_preview'>
+        {previews.map((url, index) => (
+          <div key={index} >
+          <img src={url} alt="Preview" />
+          <span 
+              onClick={() => handleRemovePreview(index)}>
+              x
+            </span>
+            </div>
+        ))}
+      </div>
+    </form>
+    )}
+    </>
   );
 };
 
