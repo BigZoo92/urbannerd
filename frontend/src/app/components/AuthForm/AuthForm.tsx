@@ -11,6 +11,7 @@ import { colors } from '@/app/constant';
 
 const AuthForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(false)
+  const [activeInput, setActiveInput] = useState<string[]>([]);
   const { register, handleSubmit, formState: {errors} } = useForm<LoginSchemaType>();
   const { register: signupRegister, handleSubmit: signupHandleSubmit, formState: signupFormState } = useForm<SignupSchemaType>();
   
@@ -31,79 +32,92 @@ const AuthForm = () => {
       }
     };
   
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
+      const text = event.target.value;
+      if (text.trim() !== '') {
+        setActiveInput((prev) => [...prev, inputName]);
+      } else {
+        setActiveInput((prev) => prev.filter(item => item !== inputName));
+      }
+    };
+
     return (
       <section className="auth">
-        <aside>
-        <PlanetIcons
-                iconProps={{
-                  size: 80,
-                  color:colors.colorPurple
-                }}
-              />
-        </aside>
         <article>
         {isLoginForm ? (
           <form onSubmit={handleSubmit(onLoginSubmit)}>
             <label>
-              Username or Email:
               <input
                 type="text"
                 {...register('usernameOrEmail', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'usernameOrEmail')}
               />
+              <span className={activeInput.includes('usernameOrEmail')  ? 'label labelActive' : 'label'}>Username or Email</span>
               {errors && errors.usernameOrEmail && (
                 <span>{errors.usernameOrEmail.message}</span>
               )}
             </label>
             <label>
-              Password:
               <input
                 type="password"
                 {...register('password', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'password')}
               />
+              <span className={activeInput.includes('password') ? 'label labelActive' : 'label'}>Password</span>
               {errors && errors.password && (
                 <span>{errors.password.message}</span>
               )}
             </label>
             <button type="submit">Login</button>
+            <span className='btn_ouline'>Forgot the Password ?</span>
           </form>
         ):(
           <form onSubmit={signupHandleSubmit(onSignupSubmit)}>
             <label>
-              Username
               <input
                 type="text"
                 {...signupRegister('username', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'username')}
               />
+              <span className={activeInput.includes('username') ? 'label labelActive' : 'label'}>Username</span>
               {signupFormState.errors && signupFormState.errors.username && (
                 <span>{signupFormState.errors.username.message}</span>
               )}
             </label>
             <label>
-              Email
+              
               <input
                 type="text"
                 {...signupRegister('email', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'email')}
               />
+              <span className={activeInput.includes('email') ? 'label labelActive' : 'label'}>Email</span>
               {signupFormState.errors && signupFormState.errors.email && (
                 <span>{signupFormState.errors.email.message}</span>
               )}
             </label>
             <label>
-              Password:
+            
               <input
                 type="password"
                 {...signupRegister('password', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'password')}
+                autoComplete="on"
               />
+              <span className={activeInput.includes('password') ? 'label labelActive' : 'label'}>Password</span>
               {errors && errors.password && (
                 <span>{errors.password.message}</span>
               )}
             </label>
             <label>
-              Confirm your password 
+              
               <input
                 type="password"
                 {...signupRegister('password', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'password')}
+                autoComplete="on"
               />
+              <span className={activeInput.includes('password') ? 'label labelActive' : 'label'}>Confirm your password </span>
               {errors && errors.password && (
                 <span>{errors.password.message}</span>
               )}
@@ -111,7 +125,7 @@ const AuthForm = () => {
             <button type="submit">Login</button>
           </form>
         )}
-        <span onClick={() => setIsLoginForm(!isLoginForm)}>
+        <span onClick={() => setIsLoginForm(!isLoginForm)} className='changeForm'>
           {isLoginForm ? 'Créer un compte' : 'Déjà un compte ? Connectez-vous'}
         </span>
         </article>
