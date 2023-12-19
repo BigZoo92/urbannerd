@@ -8,7 +8,7 @@ const prisma = new PrismaClient({
 });
 
 export const createPost = async (req: Request, res: Response) => {
-  const {content, tags} = req.body
+  const {content} = req.body
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
   console.log(files)
   try {
@@ -18,48 +18,21 @@ export const createPost = async (req: Request, res: Response) => {
     }
     const postData: PostSchemaType = PostSchema.parse({
       content: req.body.content,
-      videos: files.videos?.map(file => file.path),
-      images: files.images?.map(file => file.path),
-      model3D: files.model3D?.map(file => file.path),
+      files: files.files?.map(file => file.path),
       tags: req.body.tags,
       userId: userId
     });
 
-    const model3DPath = files['model3D']?.map(file => file.path);
-    const videoPaths = files['videos']?.map(file => file.path);
-    const imagePaths = files['images']?.map(file => file.path);
+    const filesPath = files['files']?.map(file => file.path);
 
     const newPost = await prisma.post.create({
       data: {
         content,
         userId,
-        model3D: model3DPath,
-        videos: videoPaths,
-        images: imagePaths,
+        files: filesPath,
       },
     });
 
-    for (const tagName of tags) {
-      let tag = await prisma.tag.findUnique({
-        where: { name: tagName },
-      });
-
-      if (!tag) {
-        tag = await prisma.tag.create({
-          data: { name: tagName },
-        });
-      }
-
-
-      await prisma.post.update({
-        where: { id: newPost.id },
-        data: {
-          tags: {
-            connect: { id: tag.id },
-          },
-        },
-      });
-    }
     res.status(201).json({ post: newPost });
 
   } catch (error: any) {

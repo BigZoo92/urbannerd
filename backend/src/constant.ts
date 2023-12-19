@@ -32,8 +32,6 @@ export const storage = multer.diskStorage({
   }
 });
 export const upload = multer({ storage: storage }).fields([
-  { name: 'model3D', maxCount: 1 },
-  { name: 'videos', maxCount: 4 },  
-  { name: 'images', maxCount: 4 }    
+  { name: 'files', maxCount: 4 },  
 ]);
 

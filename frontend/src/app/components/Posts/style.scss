@@ -16,21 +16,5 @@
       width: 80%;
       color: white;
     }
-    .post_media {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 5px;
-      width: 100%;
-      img,
-      video,
-      & > div {
-        width: 130px !important;
-        height: 120px !important;
-        object-fit: cover;
-        border-radius: 15px;
-      }
-    }
   }
 }

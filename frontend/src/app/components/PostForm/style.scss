@@ -1,50 +1,117 @@
 @import '../../sass/variables';
 
 .cd_createPost {
+  z-index: 999;
   position: fixed;
   inset: 0;
-  width: 100%;
   height: 100dvh;
+  width: 100dvw;
+  background-color: $color_dark;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: $marge;
+  gap: $marge * 2;
+  pointer-events: all;
+  svg {
+    cursor: pointer;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    input {
+      border: none;
+      outline: none;
+      background: $color_purple;
+      padding-block: $marge / 3;
+      width: $marge * 4;
+      border-radius: 20px;
+      font-weight: bold;
+      color: $color_white;
+    }
+  }
+  textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid $color_blue;
+    width: 100%;
+    color: $color_white;
+  }
+  .action_post_form {
+    width: 100%;
+    gap: $marge;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    input {
+      display: none;
+    }
+  }
+}
+.openForm {
+  cursor: pointer;
+  position: fixed;
+  right: 25px;
+  bottom: 100px;
+  pointer-events: all;
+  background-color: $color_purple;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  width: $marge * 2.5;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  pointer-events: none;
-  span {
-    position: absolute;
-    right: 25px;
-    bottom: 100px;
-    pointer-events: all;
-    background-color: $color_purple;
-    border-radius: 50%;
-    aspect-ratio: 1/1;
-    width: $marge * 1.75;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  aside {
-    pointer-events: all;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $color_dark;
-    height: 100%;
-    width: 100%;
-    transform: ease-in 0.5s;
-    form {
+}
+
+.post_preview {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  gap: calc($marge / 2);
+  div {
+    position: relative;
+    width: calc(50% - calc($marge / 2));
+    aspect-ratio: 3/2;
+    img,
+    video,
+    canvas {
+      object-fit: cover;
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+    }
+    span {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      cursor: 'pointer';
+      border-radius: 50%;
+      width: 17px;
+      aspect-ratio: 1/1;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      background-color: rgba(213, 190, 255, 0.284);
-      transition: opacity ease 0.3s 0.175s;
-      label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
+      color: $color_white;
+      background-color: rgba(133, 133, 133, 0.509);
     }
   }
+}
+
+textarea::-moz-placeholder {
+  font-size: 1.25rem !important;
+  color: aliceblue !important;
+  opacity: 0.5;
+}
+
+textarea::placeholder {
+  font-size: 1.25rem !important;
+  color: aliceblue !important;
+  opacity: 0.5;
 }

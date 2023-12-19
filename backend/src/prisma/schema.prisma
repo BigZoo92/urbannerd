@@ -19,7 +19,6 @@ model User {
   password    String
   status      StatusUser
   posts       Post[]
-  likedTags   Tag[]
   comments    Comment[]
   postLikes   PostLike[]
   postReposts PostRepost[]
@@ -28,23 +27,13 @@ model User {
 model Post {
   id          Int        @id @default(autoincrement())
   content     String?
-  videos      String[]   @default([])
-  images      String[]   @default([]) 
-  model3D     String[]   @default([]) 
-  tags        Tag[]
+  files      String[]   @default([])
   createdAt   DateTime   @default(now())
   userId      Int
   user        User       @relation(fields: [userId], references: [id])
   comments    Comment[]
   postLikes   PostLike[]
   postReposts PostRepost[]
-}
-
-model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  posts Post[]
-  users User[]
 }
 
 model Comment {
