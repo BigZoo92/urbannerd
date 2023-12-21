@@ -3,14 +3,11 @@ import { PrismaClient } from '@prisma/client';
 import { PostSchema, PostSchemaType } from '../../types';
 
 
-const prisma = new PrismaClient({
-  log: ['info', 'warn'],
-});
+const prisma = new PrismaClient();
 
 export const createPost = async (req: Request, res: Response) => {
   const {content} = req.body
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-  console.log(files)
   try {
     const userId = req?.session?.user?.id;
     if (!userId) {

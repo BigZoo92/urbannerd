@@ -1,7 +1,6 @@
 import { CorsOptions } from 'cors';
 import multer from 'multer';
 import path from 'path';
-7;
 
 // WHITELIST
 export const whitelist = ['http://localhost:3000'];
@@ -32,6 +31,7 @@ export const storage = multer.diskStorage({
   }
 });
 export const upload = multer({ storage: storage }).fields([
-  { name: 'files', maxCount: 4 },  
+  { name: 'files', maxCount: 4 },
+  { name: 'pp', maxCount: 1 }, 
 ]);
 

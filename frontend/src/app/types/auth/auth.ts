@@ -9,9 +9,20 @@ export const AuthSchema = z.object({
   email: z.string().email(),
   password: z.string().min(4),
   status: StatusUser,
+  pp: z.string().optional(),
+  bio: z.string().optional(),
+  website: z.string().optional(),
 });
 
 export type AuthSchemaType = z.TypeOf<typeof AuthSchema>;
+
+export const EditProfil = z.object({
+  pp: z.string().optional(),
+  bio: z.string().optional(),
+  website: z.string().optional(),
+});
+
+export type EditProfilType = z.TypeOf<typeof EditProfil>;
 
 export const LoginSchema = z.object({
   usernameOrEmail: z.string().min(4),

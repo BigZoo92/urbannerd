@@ -4,11 +4,32 @@ import Link from 'next/link';
 import { HoodieIcons, PlanetIcons } from '../Icons';
 import { colors } from '@/app/constant';
 import { usePathname } from 'next/navigation';
+import { useState, useRef, useEffect } from 'react';
 
 const NavTab = () => {
   const pathname = usePathname();
+  const [opacity, setOpacity] = useState(1);
+  const lastScrollY = useRef(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current) {
+        setOpacity(0.339623); 
+      } else {
+        setOpacity(1);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <footer>
+    <footer style={{ opacity }}>
       <nav>
         <ul>
           <span

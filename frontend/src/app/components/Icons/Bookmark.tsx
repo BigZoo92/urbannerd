@@ -1,10 +1,10 @@
 'use client';
-import { Bookmark, IconContext, IconProps } from '@phosphor-icons/react';
+import { BookmarkSimple , IconContext, IconProps } from '@phosphor-icons/react';
 
 export const BookmarkIcons = ({ iconProps }: { iconProps: IconProps }) => {
   return (
     <IconContext.Provider value={iconProps}>
-      <Bookmark size={iconProps.size}></Bookmark>
+      <BookmarkSimple  size={iconProps.size} weight="fill"></BookmarkSimple >
     </IconContext.Provider>
   );
 };

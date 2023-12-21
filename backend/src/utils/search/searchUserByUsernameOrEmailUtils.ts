@@ -1,9 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { AuthSchemaType } from '../../types';
 
-const prisma = new PrismaClient({
-  log: ['info', 'warn'],
-});
+const prisma = new PrismaClient();
 
 export const searchUserByUsernameOrEmail = async (
   usernameOrEmail: string,
@@ -13,11 +11,13 @@ export const searchUserByUsernameOrEmail = async (
       const user = await prisma.user.findFirst({
         where: { email: { equals: usernameOrEmail } },
       });
+      //@ts-ignore
       return user;
     } else {
       const user = await prisma.user.findFirst({
         where: { username: { equals: usernameOrEmail } },
       });
+      //@ts-ignore
       return user;
     }
   } catch (error) {

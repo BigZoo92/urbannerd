@@ -1,4 +1,6 @@
-export const isAuth = async (): Promise<boolean | undefined> => {
+import { AuthSchemaType } from "@/app/types";
+
+export const isAuth = async (): Promise<AuthSchemaType | undefined> => {
   try {
     const response = await fetch('http://localhost:4000/api/checkAuthenticated', {
         credentials: "include",
@@ -11,10 +13,9 @@ export const isAuth = async (): Promise<boolean | undefined> => {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Login failed:', errorData);
-      return false
+      return errorData
     } else {
-      const responseData: boolean = await response.json();
-      console.log(responseData);
+      const responseData: AuthSchemaType = await response.json();
       return responseData;
     }
   } catch (error) {

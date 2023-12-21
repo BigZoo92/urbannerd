@@ -13,4 +13,6 @@ export * from './Video';
 export * from './ArrowLeft';
 export * from './Cube';
 export * from './Image';
+export * from './UploadSimple'
+export * from './Export'
 

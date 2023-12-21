@@ -5,20 +5,13 @@ import { PrismaClient, StatusUser } from '@prisma/client';
 import { SignupSchema, SignupSchemaType } from '../../../types';
 import { sendConfirmSignupMail } from '../../../utils';
 
-const prisma = new PrismaClient({
-  log: ['info', 'warn'],
-});
+const prisma = new PrismaClient();
 
 export const signup = async (
   req: Request<{}, {}, SignupSchemaType>,
   res: Response,
 ) => {
   const { username, email, password }: SignupSchemaType = req.body;
-  console.log({
-    username,
-    email,
-    password,
-  })
   try {
     SignupSchema.parse({
       username,

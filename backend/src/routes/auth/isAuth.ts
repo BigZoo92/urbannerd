@@ -6,9 +6,9 @@ export const isAuth = (
   res: Response,
 ) => {
     if(req.session.user){
-      res.status(201).json(true);
+      res.status(201).json(req.session.user);
     }else{
-      res.status(201).json(false);
+      res.status(201).json(null);
     }
   
 };

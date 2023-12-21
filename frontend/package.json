@@ -10,9 +10,15 @@
     "sass": "sass --watch ./src/app/sass/main.scss ./public/style/style.css --style compressed"
   },
   "dependencies": {
-    "@capacitor/android": "^5.4.2",
-    "@capacitor/cli": "^5.4.2",
-    "@capacitor/core": "^5.4.2",
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/camera": "^5.0.8",
+    "@capacitor/core": "^5.6.0",
+    "@capacitor/dialog": "^5.0.6",
+    "@capacitor/ios": "^5.6.0",
+    "@capacitor/push-notifications": "^5.1.0",
+    "@capacitor/share": "^5.0.6",
+    "@capacitor/toast": "^5.0.6",
+    "@ionic/pwa-elements": "^3.2.2",
     "@phosphor-icons/react": "^2.0.14",
     "@react-three/drei": "^9.92.4",
     "@react-three/fiber": "^8.15.12",
@@ -32,6 +38,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@capacitor/cli": "^5.6.0",
     "@phosphor-icons/react": "^2.0.14",
     "@types/react": "^18.2.38",
     "@types/react-lazy-load-image-component": "^1.6.3",

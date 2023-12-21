@@ -1,0 +1,17 @@
+@import '../sass/variables';
+
+.profil_settings_main {
+  background-color: $color-dark;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 999;
+  position: fixed;
+  padding: $marge;
+  inset: 0;
+  .back_arrow {
+    position: absolute;
+    inset: $marge;
+    width: min-content;
+    height: min-content;
+  }
+}
