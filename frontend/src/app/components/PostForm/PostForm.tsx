@@ -4,20 +4,55 @@ import React, { useRef, useState } from 'react';
 
 import './style.scss';
 
-import { ArrowLeftIcons, CubeIcons, ImageIcons, PencilSimpleLineIcons, VideoIcons } from '@/app/components/Icons';
+import { ArrowLeftIcons, ImageIcons, PencilSimpleLineIcons, UploadSimpleIcons } from '@/app/components/Icons';
 import { colors } from '@/app/constant';
 import { PostSchemaType } from '@/app/types';
 import { useForm } from 'react-hook-form';
-import { captureModelFrame } from './captureModelFrame';
-import { captureVideoFrame } from './captureVideoFrame';
 import { onSubmit } from './onSubmit';
+import { previewMedia } from '@/app/utils/preview';
+import { Toast } from '@capacitor/toast';
+import { getAllPosts } from '@/app/utils';
+import { useAuthContext } from '@/app/provider/AuthProvider';
+import { Camera, CameraResultType } from '@capacitor/camera';
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
+defineCustomElements(window);
+
 
 const PostForm = () => {
   const [isShow, setIsShow] = useState(false);
   const [previews, setPreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  const { register, handleSubmit, formState: { errors } } = useForm<PostSchemaType>();
+  const { register, handleSubmit } = useForm<PostSchemaType>();
   const filesRef = useRef<HTMLInputElement>(null)
+  const {fetchPost} = useAuthContext()
+
+  const convertToBlob = async (photoUri: string) => {
+    const response = await fetch(photoUri);
+    const blob = await response.blob();
+    return blob;
+  };
+  
+  const convertBlobToFile = (blob: Blob, fileName: string): File => {
+    return new File([blob], fileName, { type: "image/jpeg" });
+  };
+  
+
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+  
+    const blob = await convertToBlob(image.webPath!);
+    const newFile = convertBlobToFile(blob, "photo.jpg");
+  
+    setFiles((prev) => [...prev, newFile].slice(0, 4));
+    const previewUrl = await previewMedia(newFile);
+    if (previewUrl) {
+      setPreviews(prev => [...prev, previewUrl]);
+    }
+  };
 
   const openFileUpload = () => {
     if (filesRef.current) {
@@ -25,24 +60,36 @@ const PostForm = () => {
     }
   };
 
+  const showCreatPostToast = async () => {
+    await Toast.show({
+      text: 'Your Post is posted!',
+      position: 'top'
+    },
+    );
+  };
+
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles = Array.from(event.target.files);
       setFiles((prev) => [...prev, ...newFiles].slice(0, 4));
       for (const file of newFiles) {
-        let previewUrl: any
-        if (file.type.startsWith('video/')) {
-          previewUrl = await captureVideoFrame(file);
-        } else if (file.name.endsWith('.gltf') || file.name.endsWith('.glb')) {
-          const modelUrl = URL.createObjectURL(file); 
-          previewUrl = await captureModelFrame(modelUrl);
-        } else {
-          previewUrl = URL.createObjectURL(file); 
-        }
+        const previewUrl = await previewMedia(file)
+        if(!previewUrl) return
         setPreviews(prev => [...prev, previewUrl]);
       }
     }
   };
+
+  const previewClass = (() => {
+    const count = previews?.length || 0;
+    switch (count) {
+      case 1: return 'one-image';
+      case 2: return 'two-images';
+      case 3: return 'three-images';
+      case 4: return 'four-images';
+      default: return '';
+    }
+  })();
 
   const handleRemovePreview = (indexToRemove: number) => {
     setPreviews((prev) => prev.filter((_, index) => index !== indexToRemove));
@@ -63,9 +110,11 @@ const PostForm = () => {
       </span>
     )}
     {isShow && (
-    <form onSubmit={handleSubmit((formData) => {
+    <form onSubmit={handleSubmit(async (formData) => {
       onSubmit(formData, files)
+      await fetchPost()
       setIsShow(!isShow)
+      await showCreatPostToast()
       })} 
       className="cd_createPost"
     >
@@ -86,6 +135,12 @@ const PostForm = () => {
               color: colors.colorPurple,
               onClick: () => openFileUpload()
             }}></ImageIcons>
+        <UploadSimpleIcons 
+        iconProps={{
+              size: 32,
+              color: colors.colorPurple,
+              onClick: () => openFileUpload()
+            }}></UploadSimpleIcons>
             <input
               type="file"
               accept=".gltf, .glb, .webp, .jpg, .png, .mp4"
@@ -96,7 +151,7 @@ const PostForm = () => {
               max={4}
             />
       </div>
-      <div className='post_preview'>
+      <div className={`post_preview ${previewClass}`}>
         {previews.map((url, index) => (
           <div key={index} >
           <img src={url} alt="Preview" />

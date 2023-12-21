@@ -1,0 +1,15 @@
+@import '../../sass/variables';
+
+.pp,
+.pp_img {
+  width: 50px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 3px solid $color_white;
+  border-radius: 50%;
+  background-color: rgb(97, 97, 110);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}

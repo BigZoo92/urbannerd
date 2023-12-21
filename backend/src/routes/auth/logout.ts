@@ -9,7 +9,7 @@ export const logout = async (
   try {
     req.session.user = null
     req.session.save()
-    res.status(200).json({ user: req.session.user, userExist: true });
+    res.status(200).json({ message: 'Logout sucessed' });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);
     res

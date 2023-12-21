@@ -3,9 +3,7 @@ import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../../constant';
 import { PrismaClient, StatusUser } from '@prisma/client';
 
-const prisma = new PrismaClient({
-  log: ['info', 'warn'],
-});
+const prisma = new PrismaClient();
 
 export const confirmSignup = async (req: Request, res: Response) => {
   const { token } = req.query;
@@ -40,7 +38,7 @@ export const confirmSignup = async (req: Request, res: Response) => {
         status: StatusUser.Unconfirmed,
       },
     });
-
+    //@ts-ignore
     req.session.user = existingUser;
     res.redirect('http://localhost:3000');
   } catch (error) {

@@ -13,12 +13,11 @@ import { PostProps } from './components/Posts';
 
 export default function Home() {
   const { loading } = useAuthContext()
-  const [posts, setPosts] = useState<PostProps[]>([])
+  const {posts, setPosts} = useAuthContext()
 
   useEffect(() => {
     (async() => {
-      const data = await getAllPosts();
-      console.log(data); 
+      const data = await getAllPosts(); 
       setPosts(data);
     })()
   }, [setPosts])
@@ -33,11 +32,6 @@ export default function Home() {
         {posts.map((post, index) => (
             <Post key={index} post={post} />
           ))}
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
         </section>
         <PostForm></PostForm>
       </main>

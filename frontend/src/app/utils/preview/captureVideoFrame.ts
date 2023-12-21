@@ -1,7 +1,14 @@
-export const captureVideoFrame = (videoFile: File) => {
+export const captureVideoFrame = (videoFile: File | string): Promise<string> => {
     return new Promise((resolve, reject) => {
+      
       const videoElement = document.createElement('video');
-      videoElement.src = URL.createObjectURL(videoFile);
+      if (videoFile instanceof File) {
+        videoElement.src = URL.createObjectURL(videoFile);
+      } 
+      else if (typeof videoFile === 'string') {
+        videoElement.src = videoFile;
+      } 
+      videoElement.crossOrigin = 'Anonymous';
       videoElement.load();
       videoElement.addEventListener('loadeddata', () => {
         videoElement.currentTime = 1; 

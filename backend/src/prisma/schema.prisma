@@ -18,22 +18,25 @@ model User {
   email       String      @unique
   password    String
   status      StatusUser
+  pp          String?
+  bio         String?
+  website     String?
   posts       Post[]
   comments    Comment[]
   postLikes   PostLike[]
-  postReposts PostRepost[]
+  Bookmark    Bookmark[]
 }
 
 model Post {
   id          Int        @id @default(autoincrement())
   content     String?
-  files      String[]   @default([])
+  files       String[]   @default([])
   createdAt   DateTime   @default(now())
   userId      Int
   user        User       @relation(fields: [userId], references: [id])
   comments    Comment[]
   postLikes   PostLike[]
-  postReposts PostRepost[]
+  Bookmark    Bookmark[]
 }
 
 model Comment {
@@ -54,7 +57,7 @@ model PostLike {
   post      Post     @relation(fields: [postId], references: [id])
 }
 
-model PostRepost {
+model Bookmark {
   id        Int      @id @default(autoincrement())
   userId    Int
   postId    Int

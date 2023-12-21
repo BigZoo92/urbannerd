@@ -1,36 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LoginSchemaType, SignupSchemaType } from '../../types';
 
 import './style.scss';
-import { login, signup } from '@/app/utils/auth';
-import { PlanetIcons } from '../Icons';
-import { colors } from '@/app/constant';
+import { useAuthContext } from '@/app/provider/AuthProvider';
+import { useRouter } from 'next/navigation';
+import { onSubmit } from './onSubmit';
 
 const AuthForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(false)
   const [activeInput, setActiveInput] = useState<string[]>([]);
   const { register, handleSubmit, formState: {errors} } = useForm<LoginSchemaType>();
+  const {user} = useAuthContext()
+  const router = useRouter();
+  const {onLoginSubmit, onSignupSubmit} = onSubmit()
   const { register: signupRegister, handleSubmit: signupHandleSubmit, formState: signupFormState } = useForm<SignupSchemaType>();
   
-    const onLoginSubmit = async (formData: LoginSchemaType) => {
-      try {
-        await login(formData);
-      } catch (error) {
-        console.error('Login failed:', error);
-      }
-    };
-
-    const onSignupSubmit = async (formData: SignupSchemaType) => {
-      try {
-        // Appelle la fonction signup avec les données du formulaire
-        await signup(formData);
-      } catch (error) {
-        console.error('Signup failed:', error);
-      }
-    };
+    
   
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
       const text = event.target.value;
@@ -40,12 +28,16 @@ const AuthForm = () => {
         setActiveInput((prev) => prev.filter(item => item !== inputName));
       }
     };
-
+    useEffect(() => {
+      if(user){
+        router.push('/');
+      }
+    }, [user])
     return (
       <section className="auth">
         <article>
         {isLoginForm ? (
-          <form onSubmit={handleSubmit(onLoginSubmit)}>
+          <form className='authForm' onSubmit={handleSubmit(onLoginSubmit)}>
             <label>
               <input
                 type="text"
@@ -72,7 +64,7 @@ const AuthForm = () => {
             <span className='btn_ouline'>Forgot the Password ?</span>
           </form>
         ):(
-          <form onSubmit={signupHandleSubmit(onSignupSubmit)}>
+          <form className='authForm' onSubmit={signupHandleSubmit(onSignupSubmit)}>
             <label>
               <input
                 type="text"

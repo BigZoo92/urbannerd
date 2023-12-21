@@ -5,6 +5,8 @@ import './sass/main.scss';
 import { AuthProvider } from './provider/AuthProvider';
 import Header from './components/Header';
 
+
+
 const poppins = Poppins({ subsets: ['latin'], weight: ['100', '500'] });
 
 export const metadata: Metadata = {
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
+  
   return (
     <html lang="en">
       <body className={poppins.className}>
