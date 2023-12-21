@@ -139,7 +139,7 @@ const PostForm = () => {
         iconProps={{
               size: 32,
               color: colors.colorPurple,
-              onClick: () => openFileUpload()
+              onClick: () => takePicture()
             }}></UploadSimpleIcons>
             <input
               type="file"
