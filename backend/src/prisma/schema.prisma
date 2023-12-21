@@ -12,6 +12,13 @@ enum StatusUser {
   Confirmed
 }
 
+model Subscription {
+  id         Int    @id @default(autoincrement())
+  followerId Int
+  followingId Int
+  follower   User   @relation("followerRelation", fields: [followerId], references: [id])
+  following  User   @relation("followingRelation", fields: [followingId], references: [id])
+}
 model User {
   id          Int         @id @default(autoincrement())
   username    String      @unique
@@ -25,6 +32,9 @@ model User {
   comments    Comment[]
   postLikes   PostLike[]
   Bookmark    Bookmark[]
+  followedBy   Subscription[] @relation("followerRelation")
+  following    Subscription[] @relation("followingRelation")
+  products    Product[]
 }
 
 model Post {
@@ -41,12 +51,28 @@ model Post {
 
 model Comment {
   id        Int      @id @default(autoincrement())
-  content   String?
+  content   String
   createdAt DateTime @default(now())
   userId    Int
-  postId    Int
   user      User     @relation(fields: [userId], references: [id])
-  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int?     
+  productId Int?     
+  post      Post?    @relation(fields: [postId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  sizes       String[]
+  stock       Int
+  model3D     String? 
+  images      String[] @default([]) 
+  comments    Comment[]
+  userId      Int       
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model PostLike {

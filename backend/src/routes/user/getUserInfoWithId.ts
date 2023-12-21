@@ -4,10 +4,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const getUserInfoWithId = async (req: Request<{}, {}, any>, res: Response) => {
-    const {id} = req.body
+  //@ts-ignore
+  const {userId} = req.params;
   try {
     const user = await prisma.user.findFirst({
-        where: { id: { equals: id } },
+        where: { id: { equals: userId } },
       });
     res.status(201).json({user: user});
   } catch (error: any) {

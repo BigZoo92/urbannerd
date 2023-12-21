@@ -16,6 +16,10 @@ import { isPostLikedByUser } from './post/isPostLikedByUser ';
 import { toggleBookmark } from './post/toggleBookmark ';
 import { isPostBookmarkedByUser } from './post/isPostBookmarkedByUser ';
 import { getBookmark } from './user/getBookmark';
+import { getPostLikesCount } from './post/getPostLikesCount';
+import { getUserLikedPosts } from './post/getUserLikedPosts';
+import { getUserPosts } from './post/getUserPosts';
+import { createProduct } from './product/createProduct';
 
 declare global {
   namespace Express {
@@ -52,7 +56,7 @@ router.post('/getAllPosts', checkAuthenticated,  (req, res) => getAllPosts(req, 
 router.post('/editProfil', checkAuthenticated, upload,  (req, res) => editUserInfo(req, res));
 
 //GET USER INFO WITH HIS ID
-router.post('/getUserInfoWithId',  (req, res) => getUserInfoWithId(req, res));
+router.get('/getUserInfoWithId/:userId',  (req, res) => getUserInfoWithId(req, res));
 
 //LIKE
 router.post('/like',  (req, res) => likePost(req, res));
@@ -68,5 +72,18 @@ router.get('/isPostBookmarkedByUser/:postId', checkAuthenticated, isPostBookmark
 
 //GET BOOKMARK
 router.get('/bookmark', checkAuthenticated, getBookmark);
+
+// GET LIKE COUNT
+router.get('/post/:postId/likes/count', (req, res) => getPostLikesCount(req, res));
+
+// GET LIKED POST BY A USER
+router.get('/user/:userId/likedPosts', (req, res) => getUserLikedPosts(req, res));
+
+// GET POST BY A USER
+router.get('/user/:userId/posts', (req, res) => getUserPosts(req, res));
+
+// CREAT PRODUCT
+router.post('/product/create', checkAuthenticated, upload, (req, res) => createProduct(req, res));
+
 
 export default router;
