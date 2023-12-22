@@ -15,7 +15,6 @@ export const handleBuyNow = async (price: number, productId: number, productName
       });
   
       const data = await response.json();
-      console.log(data)
       if (data.session.id) {
         const result = await stripe.redirectToCheckout({ sessionId: data.session.id });
         if (result.error) {

@@ -36,6 +36,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const data = await getAllPosts(); 
     setPosts(data);
 }
+
+
 const fetchProduct = async() => {
   const data = await getAllProduct(); 
   setProducts(data);
@@ -53,6 +55,7 @@ const fetchProduct = async() => {
 
   const fetchUser = async () => {
     const authStatus = await isAuth();
+    console.log(authStatus)
     //@ts-ignore
     setUser(authStatus);
     if(!authStatus){
@@ -70,7 +73,6 @@ const fetchProduct = async() => {
 
   useEffect(() => {
     if(user === 'haha') return
-    console.log(user)
     if(!user){
       router.push('/auth');
       setLoading(true)

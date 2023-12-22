@@ -1,6 +1,7 @@
 import { SignupSchemaType } from '../../types'; // Remplace path-to-your-types par le chemin correct
 
 export const signup = async (formData: SignupSchemaType) => {
+  console.log(formData)
   try {
     const response = await fetch('http://localhost:4000/api/auth/signup', {
       method: 'POST',

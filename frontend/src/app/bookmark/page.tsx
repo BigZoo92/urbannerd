@@ -19,7 +19,6 @@ export default function Home() {
   useEffect(() => {
     (async() => {
       const data = await getBookmark(); 
-      console.log(data)
       //@ts-ignore
       setBookmarkedPost(data)
     })()

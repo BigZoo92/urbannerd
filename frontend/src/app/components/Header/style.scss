@@ -58,6 +58,9 @@ header {
       flex-direction: column;
       gap: $marge * 2;
       width: 100%;
+      span {
+        color: $color_white;
+      }
       a {
         display: flex;
         justify-content: flex-start;

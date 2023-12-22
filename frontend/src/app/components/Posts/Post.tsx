@@ -13,6 +13,10 @@ import { checkIfPostIsBookmarked, toggleBookmark } from '@/app/utils/post/fetchB
 import { Toast } from '@capacitor/toast';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { Share } from '@capacitor/share';
+import { fetchPostLikesCount } from '@/app/utils/post/fetchPostLikesCount';
+import { useAuthContext } from '@/app/provider/AuthProvider';
+import { toggleFollow } from '@/app/utils/user/toggleFollow';
+import { fetchIsUserFollowing } from '@/app/utils/user/fetchIsUserFollowing';
 
 export interface PostProps {
   id: number;
@@ -26,8 +30,28 @@ const Post = ({ post }: { post: PostProps }) => {
   const [renderMediaPost, setRenderMediaPost] = useState<{ [key: string]: string }>({});
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const [user, setUser] = useState<{user: AuthSchemaType} | null>(null)
+  const {fetchPost} = useAuthContext()
   const [isLike, setIslike] = useState(false)
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const [likeCount, setLikeCount] = useState<number | null>(null)
+  const [isFollow, setIsFollow] = useState(false)
+  
+    useEffect(() => {
+      (async() => {
+        const test = await fetchPostLikesCount(post?.id)
+        setLikeCount(test.likesCount)
+      })()
+  }, [post]);
+
+  const fetchFollow = async() => {
+    if(!user?.user.id)return
+    const test = await fetchIsUserFollowing(user?.user.id)
+    setIsFollow(test)
+  }
+
+  useEffect(() => {
+    fetchFollow()
+}, [user, toggleLikePost]);
 
   const showLikeToast = async () => {
     await Toast.show({
@@ -132,6 +156,7 @@ const Post = ({ post }: { post: PostProps }) => {
     await toggleLikePost(post.id);
     await fetchLikeStatus()
     await showLikeToast()
+    await fetchPost()
   };
   const handleBookmarkClick = async () => {
     await toggleBookmark(post.id);
@@ -159,7 +184,6 @@ const Post = ({ post }: { post: PostProps }) => {
       dialogTitle: 'Share with buddies',
     });
   }
-
   if(!user) return
   return (
     <div className="post">
@@ -167,7 +191,16 @@ const Post = ({ post }: { post: PostProps }) => {
       <PhotoProfil userPP={user?.user?.pp}/>
       </Link>
        <div className='post_content'>
-        <div className='userInfo'><p>{user.user.username}</p></div>
+        <div className='userInfo'>
+          <p>{user.user.username}</p>
+          <span onClick={async() => {
+            await toggleFollow(user?.user.id)
+            await fetchFollow()
+            }}
+          >
+              {isFollow ? 'follow' : 'followed'}
+          </span>
+          </div>
       {post.content && <p>{post.content}</p>}
       <div className='post_media'>
         {post.files?.length !== 0 && (
@@ -193,7 +226,9 @@ const Post = ({ post }: { post: PostProps }) => {
               stroke: isLike ? "transparent" : colors.colorWhite,
               strokeWidth: 15,
             }}
+            
           />
+          <span>{likeCount}</span>
           </div>
           <div onClick={handleBookmarkClick}>
           <BookmarkIcons

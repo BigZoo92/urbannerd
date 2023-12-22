@@ -14,7 +14,7 @@ const PhotoProfil = ({userPP, onClick}: {userPP: string | undefined, onClick?: R
               iconProps={{
                 size: 85,
                 color: colors.colorWhite,
-                
+                className: 'pp_img',
                 onClick: onClick
               }}
             />

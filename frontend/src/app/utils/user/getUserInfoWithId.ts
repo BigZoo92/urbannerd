@@ -13,7 +13,6 @@ export const getUserInfoWithId = async (id: number): Promise<{user: AuthSchemaTy
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.log(errorData)
       return null
     } else {
       const responseData = await response.json();

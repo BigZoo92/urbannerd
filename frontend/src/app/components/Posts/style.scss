@@ -22,6 +22,11 @@
       p {
         font-weight: 600;
       }
+      span {
+        color: $color_white;
+        font-weight: 200;
+        font-size: 0.75rem;
+      }
     }
     p {
       width: 100%;
@@ -37,6 +42,11 @@
       gap: $marge;
       justify-content: flex-end;
       align-items: center;
+      span {
+        color: $color_white;
+        font-weight: 100;
+        font-size: 0.65rem;
+      }
       svg {
         transition: all ease 0.3s;
       }

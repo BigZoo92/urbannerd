@@ -24,7 +24,6 @@ export default function Home() {
     })()
   }, [setPosts])
  
-  
   return loading ? (
     <Loader></Loader>
   ) : (
@@ -32,7 +31,7 @@ export default function Home() {
     <Header></Header>
       <main>
         <section className="feed">
-        {posts.map((post, index) => (
+        {posts && posts.map((post, index) => (
             <Post key={index} post={post} />
           ))}
         </section>

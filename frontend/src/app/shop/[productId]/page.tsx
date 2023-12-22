@@ -72,7 +72,6 @@ const Home = () => {
       const queryParams = window.location.href.split('=')[1];
       if (queryParams) {
         (async() => {
-          console.log(queryParams)
           if (queryParams === 'true'){
             await showSuccessToast()
           }else if(queryParams === 'false'){
@@ -84,7 +83,6 @@ const Home = () => {
   useEffect(() => {
     (async() => {
       const data = await getProductWithId(productId); 
-      console.log(data)
       setProduct(data?.product);
     })()
   }, [setProduct])

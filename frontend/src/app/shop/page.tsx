@@ -26,7 +26,7 @@ const Home = () => {
     <Header></Header>
       <main>
       <section className="feed_product">
-        {products.map((product, index) => (
+        {products && products.map((product, index) => (
             <Product key={index} product={product} />
           ))}
         </section>
