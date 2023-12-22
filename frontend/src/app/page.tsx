@@ -10,6 +10,8 @@ import { useAuthContext } from './provider/AuthProvider';
 import { getAllPosts } from './utils';
 import Post from './components/Posts';
 import { PostProps } from './components/Posts';
+import Header from './components/Header';
+import NavTab from './components/NavTab';
 
 export default function Home() {
   const { loading } = useAuthContext()
@@ -27,6 +29,7 @@ export default function Home() {
     <Loader></Loader>
   ) : (
     <>
+    <Header></Header>
       <main>
         <section className="feed">
         {posts.map((post, index) => (
@@ -35,6 +38,7 @@ export default function Home() {
         </section>
         <PostForm></PostForm>
       </main>
+      <NavTab></NavTab>
     </>
   )
 }

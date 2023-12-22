@@ -18,8 +18,21 @@ export const createProduct = async (req: Request, res: Response) => {
     }
     const images = files['images']?.map(file => file.path);
     const model3D = files['model3D']?.map(file => file.path)[0];
-    const productData: ProductSchemaType = ProductSchema.parse({
-      name,
+    // const productData: ProductSchemaType = ProductSchema.parse({
+    //   name,
+    //     description,
+    //     sizes,
+    //     price: newPrice,
+    //     stock: newStock,
+    //     images,
+    //     model3D,
+    //     userId
+    // });
+    
+    const newProduct = await prisma.product.create({
+      //@ts-ignore
+      data: {
+        name,
         description,
         sizes,
         price: newPrice,
@@ -27,11 +40,7 @@ export const createProduct = async (req: Request, res: Response) => {
         images,
         model3D,
         userId
-    });
-    
-    const newProduct = await prisma.product.create({
-      //@ts-ignore
-      data: productData,
+      },
     });
 
     res.status(201).json({ product: newProduct });

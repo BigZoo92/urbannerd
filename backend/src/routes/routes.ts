@@ -20,6 +20,9 @@ import { getPostLikesCount } from './post/getPostLikesCount';
 import { getUserLikedPosts } from './post/getUserLikedPosts';
 import { getUserPosts } from './post/getUserPosts';
 import { createProduct } from './product/createProduct';
+import { getAllProduct } from './product/getAllProduct';
+import { getProductWithId } from './product/getProductWithId';
+import { payment } from './payment';
 
 declare global {
   namespace Express {
@@ -49,14 +52,21 @@ router.get('/info/user', (req, res) => getUserInfo(req, res));
 
 //POST ROUTE
 router.post('/post', checkAuthenticated, upload,  (req, res) => createPost(req, res));
-//POST ROUTE
+
+//GET ALL POST
 router.post('/getAllPosts', checkAuthenticated,  (req, res) => getAllPosts(req, res));
+
+//GET ALL PRODUCT
+router.post('/getAllProduct', checkAuthenticated,  (req, res) => getAllProduct(req, res));
 
 //EDIT USER INFO
 router.post('/editProfil', checkAuthenticated, upload,  (req, res) => editUserInfo(req, res));
 
 //GET USER INFO WITH HIS ID
 router.get('/getUserInfoWithId/:userId',  (req, res) => getUserInfoWithId(req, res));
+
+//GET PRODUCT WITH ID
+router.get('/getProductWithId/:productId',  (req, res) => getProductWithId(req, res));
 
 //LIKE
 router.post('/like',  (req, res) => likePost(req, res));
@@ -84,6 +94,9 @@ router.get('/user/:userId/posts', (req, res) => getUserPosts(req, res));
 
 // CREAT PRODUCT
 router.post('/product/create', checkAuthenticated, upload, (req, res) => createProduct(req, res));
+
+// PAY
+router.post('/paiement', checkAuthenticated, (req, res) => payment(req, res));
 
 
 export default router;
