@@ -3,17 +3,20 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { isAuth } from '../utils/auth';
 import { useRouter } from 'next/navigation';
-import { AuthSchemaType } from '../types';
+import { AuthSchemaType, ProductSchemaType } from '../types';
 import { PostProps } from '../components/Posts';
-import { getAllPosts } from '../utils';
+import { getAllPosts, getAllProduct } from '../utils';
 
 interface AuthContextProps {
   loading: boolean;
   posts: PostProps[];
+  products: ProductSchemaType[];
   user: AuthSchemaType | null;
   setPosts: React.Dispatch<React.SetStateAction<PostProps[]>>;
+  setProducts: React.Dispatch<React.SetStateAction<ProductSchemaType[]>>;
   fetchUser: () => Promise<void>;
   fetchPost: () => Promise<void>;
+  fetchProduct: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -27,15 +30,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const [posts, setPosts] = useState<PostProps[]>([])
+  const [products, setProducts] = useState<ProductSchemaType[]>([])
 
   const fetchPost = async() => {
     const data = await getAllPosts(); 
     setPosts(data);
 }
+const fetchProduct = async() => {
+  const data = await getAllProduct(); 
+  setProducts(data);
+}
 
   useEffect(() => {
     fetchPost()
   }, [setPosts])
+
+  useEffect(() => {
+    fetchProduct()
+  }, [setProducts])
 
   
 
@@ -70,7 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     //@ts-ignore
-    <AuthContext.Provider value={{ loading, user, fetchUser, posts, setPosts, fetchPost }}>
+    <AuthContext.Provider value={{ loading, user, fetchUser, posts, setPosts, products, setProducts, fetchPost, fetchProduct }}>
       {children}
     </AuthContext.Provider>
   );

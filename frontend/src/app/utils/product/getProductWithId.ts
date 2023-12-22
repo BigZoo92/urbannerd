@@ -1,14 +1,14 @@
 import { AuthSchemaType } from "@/app/types";
 
 //@ts-ignore
-export const getUserInfoWithId = async (id: number): Promise<{user: AuthSchemaType} | null> => {
+export const getProductWithId = async (productId: string): Promise<{product: ProductSchemaType} | null> => {
   try {
-    const response = await fetch(`http://localhost:4000/api/getUserInfoWithId/${id}`, {
+    const response = await fetch(`http://localhost:4000/api/getProductWithId/${parseInt(productId)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
+        credentials: 'include',
     });
 
     if (!response.ok) {

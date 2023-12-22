@@ -6,26 +6,41 @@ import { ProductSchema, ProductSchemaType } from '../../types';
 const prisma = new PrismaClient();
 
 export const createProduct = async (req: Request, res: Response) => {
-  const { name, description, price, sizes, stock } = req.body;
+  const { name, description, price, stock } = req.body;
+  const newStock = parseInt(stock)
+  const newPrice = parseInt(price)
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+  const sizes = ["S", "M", "L"]
   try {
     const userId = req?.session?.user?.id;
     if (!userId) {
       return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
     }
-
-    const productData: ProductSchemaType = ProductSchema.parse({
-      name,
-      description,
-      price,
-      sizes,
-      stock,
-      model3D: req.body.model3D,
-      images: files.images?.map(file => file.path), 
-    });
-
+    const images = files['images']?.map(file => file.path);
+    const model3D = files['model3D']?.map(file => file.path)[0];
+    // const productData: ProductSchemaType = ProductSchema.parse({
+    //   name,
+    //     description,
+    //     sizes,
+    //     price: newPrice,
+    //     stock: newStock,
+    //     images,
+    //     model3D,
+    //     userId
+    // });
+    
     const newProduct = await prisma.product.create({
-      data: productData,
+      //@ts-ignore
+      data: {
+        name,
+        description,
+        sizes,
+        price: newPrice,
+        stock: newStock,
+        images,
+        model3D,
+        userId
+      },
     });
 
     res.status(201).json({ product: newProduct });
