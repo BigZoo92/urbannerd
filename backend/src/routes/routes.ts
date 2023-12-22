@@ -23,6 +23,10 @@ import { createProduct } from './product/createProduct';
 import { getAllProduct } from './product/getAllProduct';
 import { getProductWithId } from './product/getProductWithId';
 import { payment } from './payment';
+import { getFollowersCount } from './user/getFollowersCount';
+import { getFollowingsCount } from './user/getFollowingsCount';
+import { toggleFollow } from './user/toggleFollow';
+import { isUserFollowing } from './user/isUserFollowing';
 
 declare global {
   namespace Express {
@@ -97,6 +101,11 @@ router.post('/product/create', checkAuthenticated, upload, (req, res) => createP
 
 // PAY
 router.post('/paiement', checkAuthenticated, (req, res) => payment(req, res));
+
+router.post('/user/toggleFollow', checkAuthenticated, toggleFollow);
+router.get('/user/:userId/followers/count', getFollowersCount);
+router.get('/user/:userId/followings/count', getFollowingsCount);
+router.get('/user/:followingId/isFollowing', isUserFollowing);
 
 
 export default router;

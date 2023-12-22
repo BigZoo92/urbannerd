@@ -7,11 +7,34 @@ import PhotoProfil from "../components/PhotoProfil";
 import Link from "next/link";
 import { ArrowLeftIcons } from "../components/Icons";
 import { colors } from "../constant";
+import { getFollowingsCount } from "../utils/user/getFollowingsCount";
+import { getFollowersCount } from "../utils/user/getFollowersCount";
+import { fetchUserPosts } from "../utils/user/fetchUserPosts";
+import Post, { PostProps } from "../components/Posts";
 
 const Home = () => {
   const {user} = useAuthContext()
+
   const [showHeader, setShowHeader] = useState(true);
     const lastScrollY = useRef(0);
+    const [followers, setFollowers] = useState<number | null>(null)
+    const [follows, setFollows] = useState<number | null>(null)
+    const [posts, setPosts] = useState<PostProps[] | null>(null)
+    useEffect(() => {
+      (async() => {
+        if(!user || !user.id) return
+        const data = await fetchUserPosts(user?.id); 
+        setPosts(data);
+      })()
+    }, [user, setPosts])
+
+    useEffect(() => {      
+      (async() => {
+        if(!user || !user.id) return
+        setFollowers(await getFollowingsCount(user?.id))
+        setFollows(await getFollowersCount(user?.id))
+      })()
+  }, [user, setFollowers, setFollows]);
 
     useEffect(() => {
       const handleScroll = () => {
@@ -41,7 +64,7 @@ const Home = () => {
           </Link>
           <div>
             <h1>{user?.username}</h1>
-            <h3>15 Posts</h3>
+            <h3>{posts?.length} Posts</h3>
           </div>
         </header>
         <div className="cd_pp">
@@ -51,9 +74,15 @@ const Home = () => {
           <h2>{user?.username}</h2>
           {user?.bio && (<p>{user?.bio}</p>)}
           <div className="follower">
-                <p><b>523</b>Following</p>
-                <p><b>523</b>Followers</p>
+                <p><b>{follows}</b>Following</p>
+                <p><b>{followers}</b>Followers</p>
           </div>
+          <section className="feed">
+            <h1>Post By {user.username}</h1>
+          {posts && posts.map((post, index) => (
+              <Post key={index} post={post} />
+            ))}
+        </section>
         </main>
       </>
     );

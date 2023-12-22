@@ -13,7 +13,6 @@ export const getProductWithId = async (productId: string): Promise<{product: Pro
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.log(errorData)
       return null
     } else {
       const responseData = await response.json();

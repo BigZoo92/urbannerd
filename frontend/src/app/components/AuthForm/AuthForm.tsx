@@ -105,11 +105,11 @@ const AuthForm = () => {
               
               <input
                 type="password"
-                {...signupRegister('password', { required: 'This field is required' })}
-                onChange={(e) => handleInputChange(e, 'password')}
+                {...signupRegister('confirmPassword', { required: 'This field is required' })}
+                onChange={(e) => handleInputChange(e, 'confirmPassword')}
                 autoComplete="on"
               />
-              <span className={activeInput.includes('password') ? 'label labelActive' : 'label'}>Confirm your password </span>
+              <span className={activeInput.includes('confirmPassword') ? 'label labelActive' : 'label'}>Confirm your password </span>
               {errors && errors.password && (
                 <span>{errors.password.message}</span>
               )}

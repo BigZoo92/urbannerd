@@ -17,7 +17,6 @@ export const login = async (formData: LoginSchemaType): Promise<void> => {
       console.error('Login failed:', errorData);
     } else {
       const responseData = await response.json();
-      console.log('Login successful:', responseData);
     }
   } catch (error) {
     console.error('An error occurred during login:', error);
