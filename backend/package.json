@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "ts-node ./src/app.ts",
     "start": "nodemon src/index.ts",
-    "build": "ts.check && rimraf dist && tsc",
-    "ts.check": "tsc --project tsconfig.json",
+    "build": "netlify-lambda build src",
+    "ts-check": "tsc --noEmit --lib ES2015 ./src/*.ts",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
