@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node ./src/app.ts",
     "start": "nodemon src/index.ts",
-    "build": "tsc --project tsconfig.json && rimraf dist && tsc && git add dist",
+    "build": "tsc --project tsconfig.json && rimraf dist && tsc && git add dist && mkdirp dist/uploads && mkdirp dist/src/templates && xcopy \"./uploads\" \"./dist/uploads\" /E /I && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
