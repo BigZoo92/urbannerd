@@ -1,6 +1,6 @@
 const Loader = () => {
     return(
-        <h1>WAIT BITCHES</h1>
+        <h1>WAIT</h1>
     )
 }
 

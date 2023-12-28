@@ -15,7 +15,7 @@ import ParallaxImage from "@/app/components/ParallaxImage";
 import { Toast } from "@capacitor/toast";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import Link from "next/link";
-defineCustomElements(window);
+
 
 
 const Home = () => {
@@ -44,6 +44,7 @@ const Home = () => {
   const [product, setProduct] = useState<ProductSchemaType | null>(null)
 
   const showSuccessToast = async () => {
+    defineCustomElements(window);
     await Toast.show({
       text: 'Payment successful',
       position: 'top'
@@ -60,6 +61,7 @@ const Home = () => {
     });
   }
   const showCancelToast = async () => {
+    defineCustomElements(window);
     await Toast.show({
       text: 'Payment failed',
       position: 'top'

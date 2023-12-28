@@ -8,14 +8,13 @@ export const login = async (
   res: Response,
 ) => {
   const { usernameOrEmail, password }: LoginSchemaType = req.body;
-
+  console.info(password)
   try {
     LoginSchema.parse({
       usernameOrEmail,
       password,
     });
     const user = await searchUserByUsernameOrEmail(usernameOrEmail);
-
     if (!user) {
       return res.status(401).json({ user: null, userExist: false });
     }
@@ -23,11 +22,12 @@ export const login = async (
     const isPasswordValid = await comparePasswords(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ user: user, userExist: false });
+      return res.status(401).json({ user: isPasswordValid, userExist: false });
     }
 
     req.session.user = user;
     req.session.save()
+    console.info(req.session.user)
     res.status(200).json({ user: req.session.user, userExist: true });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);

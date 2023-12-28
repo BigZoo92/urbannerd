@@ -19,7 +19,7 @@ export const sendConfirmSignupMail = async (email: string) => {
     expiresIn: '1d',
   });
 
-  const emailConfirmationLink = `http://localhost:4000/api/auth/confirmSignup?token=${emailToken}`;
+  const emailConfirmationLink = `https://1a51-2001-861-5e60-3110-7074-d229-b5bd-e6b.ngrok-free.app/api/auth/confirmSignup?token=${emailToken}`;
 
   const htmlTemplatePath = path.resolve(
     __dirname,

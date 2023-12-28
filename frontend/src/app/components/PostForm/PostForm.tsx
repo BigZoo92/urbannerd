@@ -15,7 +15,7 @@ import { getAllPosts } from '@/app/utils';
 import { useAuthContext } from '@/app/provider/AuthProvider';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
-defineCustomElements(window);
+
 
 
 const PostForm = () => {
@@ -38,6 +38,7 @@ const PostForm = () => {
   
 
   const takePicture = async () => {
+    defineCustomElements(window);
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
@@ -61,6 +62,7 @@ const PostForm = () => {
   };
 
   const showCreatPostToast = async () => {
+    defineCustomElements(window);
     await Toast.show({
       text: 'Your Post is posted!',
       position: 'top'

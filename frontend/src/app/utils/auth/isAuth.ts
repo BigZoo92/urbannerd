@@ -3,7 +3,7 @@ import { AuthSchemaType } from "@/app/types";
 export const isAuth = async (): Promise<AuthSchemaType | undefined> => {
   try {
     const response = await fetch('http://localhost:4000/api/checkAuthenticated', {
-        credentials: "include",
+      credentials: "include",
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

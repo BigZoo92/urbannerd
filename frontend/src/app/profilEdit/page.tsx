@@ -17,7 +17,6 @@ import { Toast } from "@capacitor/toast";
 import { useRouter } from 'next/navigation';
 import { editProfil } from "./editProfil";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
-defineCustomElements(window);
 
 const Home = () => {
   const { register, handleSubmit, formState: {errors} } = useForm<EditProfilType>();
@@ -40,6 +39,7 @@ const Home = () => {
   }
   const onSubmit = async (formData: EditProfilType, files: File | null) => {
     const showSaveChangeProfilToast = async () => {
+      defineCustomElements(window);
       await Toast.show({
         text: 'Your changes are saved!',
         position: 'top'

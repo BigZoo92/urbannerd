@@ -25,7 +25,7 @@ export interface PostProps {
   files?: string[];
   userId: number;
 }
-defineCustomElements(window);
+
 const Post = ({ post }: { post: PostProps }) => {
   const [renderMediaPost, setRenderMediaPost] = useState<{ [key: string]: string }>({});
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
@@ -54,6 +54,7 @@ const Post = ({ post }: { post: PostProps }) => {
 }, [user, toggleLikePost]);
 
   const showLikeToast = async () => {
+    defineCustomElements(window);
     await Toast.show({
       text: 'You liked this Post!',
       position: 'top'
@@ -62,6 +63,7 @@ const Post = ({ post }: { post: PostProps }) => {
   };
 
   const showBookmarkToast = async () => {
+    defineCustomElements(window);
     await Toast.show({
       text: 'You saved this Post!',
       position: 'top'
