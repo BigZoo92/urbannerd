@@ -1,8 +1,0 @@
-{
-	"appId": "urbarnnerd.app",
-	"appName": "urbannerd",
-	"webDir": "public",
-	"server": {
-		"androidScheme": "https"
-	}
-}

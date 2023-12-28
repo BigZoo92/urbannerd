@@ -25,6 +25,7 @@ const app = express();
 app.use(express.json());
 
 // SESSION
+console.info(secret)
 app.use(cookieParser(secret));
 app.use(
   session({
@@ -32,8 +33,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      path    : '/',
-      secure: false, // true en production, false en développement
+      secure: true, // true en production, false en développement
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
     },
@@ -61,5 +61,5 @@ app.use('/api', router);
 
 // START THE SERVER
 app.listen(port, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+  console.log(`Server is running on port 4000`);
 });

@@ -11,7 +11,7 @@ import { Toast } from '@capacitor/toast';
 import { colors } from '@/app/constant';
 import './style.scss'
 import { ArrowLeftIcons, CubeIcons, ImageIcons, PencilSimpleLineIcons, UploadSimpleIcons } from '../Icons';
-defineCustomElements(window);
+
 
 const ProductForm = () => {
   const [isShow, setIsShow] = useState(false);
@@ -46,6 +46,7 @@ const ProductForm = () => {
   };
 
   const showCreatProductToast = async () => {
+    defineCustomElements(window);
     await Toast.show({
       text: 'Your Product is posted!',
       position: 'top'
@@ -54,6 +55,7 @@ const ProductForm = () => {
   };
 
   const takePicture = async () => {
+    defineCustomElements(window);
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
