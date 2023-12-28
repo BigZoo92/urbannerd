@@ -1,0 +1,10 @@
+import { CorsOptions } from 'cors';
+import multer from 'multer';
+export declare const whitelist: string[];
+export declare const corsOptions: CorsOptions;
+export declare const port: string | number;
+export declare const stripeSecretKey: string | undefined;
+export declare const secret: string;
+export declare const jwtToken: string;
+export declare const storage: multer.StorageEngine;
+export declare const upload: import("express").RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
