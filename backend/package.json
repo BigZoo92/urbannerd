@@ -9,7 +9,7 @@
     "tscheck": "tsc --noEmit --project tsconfig.json",
     "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma",
     "deleterouter": "rimraf ./dist/routes",
-    "addfiles": "mkdirp dist/uploads && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
+    "addfiles": "mkdir dist/uploads && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
     "prebuild": "npm run tscheck && rimraf dist && npm run prismagenerate",
     "build": "tsc",
     "postbuild": "npm run deleterouter && npm run addfiles",
@@ -46,6 +46,7 @@
     "pg": "^8.11.3",
     "stripe": "^14.9.0",
     "typescript": "^5.2.2",
+    "vercel": "^33.0.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
