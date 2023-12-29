@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "tscheck": "tsc --noEmit --project tsconfig.json",
     "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma && npx prisma migrate deploy --schema=./src/prisma/schema.prisma",
-    "build": "CI=false tsc",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
