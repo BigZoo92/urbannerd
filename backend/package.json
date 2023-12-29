@@ -5,9 +5,9 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node ./src/app.ts",
-    "start": "nodemon src/app.ts",
+    "start": "node dist/app.js",
     "tscheck": "tsc --noEmit --project tsconfig.json",
-    "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma",
+    "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma && prisma migrate deploy --schema=./src/prisma/schema.prisma",
     "deleterouter": "rimraf ./dist/routes",
     "addfiles": "mkdir dist/uploads && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
     "prebuild": "npm run tscheck && rimraf dist && npm run prismagenerate",
