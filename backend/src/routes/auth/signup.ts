@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import { hashPassword } from '../../utils/password';
 import { searchUserByUsernameOrEmail } from '../../utils/search';
-import { PrismaClient, StatusUser } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { SignupSchema, SignupSchemaType } from '../../types';
 import { sendConfirmSignupMail } from '../../utils';
+
+enum StatusUser {Unconfirmed = "Unconfirmed", Confirmed ="Confirmed"}
 
 const prisma = new PrismaClient();
 

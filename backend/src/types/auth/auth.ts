@@ -1,6 +1,5 @@
-import { StatusUser } from '@prisma/client';
 import { z } from 'zod';
-
+enum StatusUser {Unconfirmed = "Unconfirmed", Confirmed ="Confirmed"}
 export const AuthSchema = z.object({
   id: z.number(),
   username: z.string().min(2),

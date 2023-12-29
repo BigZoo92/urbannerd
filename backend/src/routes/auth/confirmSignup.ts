@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-import { PrismaClient, StatusUser } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+
+enum StatusUser {Unconfirmed = "Unconfirmed", Confirmed ="Confirmed"}
 
 const prisma = new PrismaClient();
 
