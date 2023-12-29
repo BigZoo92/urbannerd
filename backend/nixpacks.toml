@@ -1,5 +1,5 @@
 [build]
-build_command = "CI=false npm run build"
+build_command = "npm run build"
 
 [start]
 start_command = "npm run start"
