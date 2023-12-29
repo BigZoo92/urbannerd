@@ -2,17 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node ./src/app.ts",
-    "start": "node dist/app.js",
+    "dev": "ts-node ./src/index.ts",
+    "start": "node dist/index.js",
     "tscheck": "tsc --noEmit --project tsconfig.json",
     "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma && prisma migrate deploy --schema=./src/prisma/schema.prisma",
-    "deleterouter": "rimraf ./dist/routes",
     "addfiles": "mkdir dist/uploads && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
     "prebuild": "npm run tscheck && rimraf dist && npm run prismagenerate",
     "build": "tsc",
-    "postbuild": "npm run deleterouter && npm run addfiles",
+    "postbuild": "npm run addfiles",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
