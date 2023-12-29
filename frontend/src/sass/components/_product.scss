@@ -1,0 +1,36 @@
+.product {
+  display: flex;
+  justify-content: flex-end;
+  gap: $marge;
+  align-items: flex-start;
+  color: $color_white;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  position: relative;
+  .cd_product_model {
+    width: 150%;
+    height: 150%;
+    top: -10%;
+    left: -25%;
+    position: absolute !important;
+  }
+  span {
+    background-color: $color_light;
+    height: 90%;
+    width: 100%;
+  }
+  .product_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    h3 {
+      font-size: 1.25rem;
+    }
+    p {
+      font-size: 0.8rem;
+      font-weight: 100;
+    }
+  }
+}

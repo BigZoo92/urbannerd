@@ -1,13 +1,12 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
+  appId: 'bigzoo.urbannerd.app',
   appName: 'urbannerd',
-  webDir: "dist",
+  webDir: 'out',
   server: {
-    url: "http://localhost:3000",
-    cleartext: true
-  },
+    androidScheme: 'https'
+  }
 };
 
 export default config;

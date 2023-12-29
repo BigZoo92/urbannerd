@@ -1,0 +1,103 @@
+.product_page_unique {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $color_white;
+    div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: $marge;
+    }
+    span {
+      font-weight: 900;
+      letter-spacing: 3px;
+      font-size: 1rem;
+    }
+  }
+}
+.product_page {
+  padding: $marge;
+  width: 100dvw;
+  background-color: $color_black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100dvh;
+  color: $color_white;
+  text-align: center;
+  padding-top: 20%;
+  padding-bottom: 50px;
+  .cd_product_model {
+    width: 100%;
+    height: 40dvh;
+    margin-bottom: -20%;
+  }
+  article {
+    height: 55dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $marge;
+    h1 {
+      font-size: 3.25rem;
+      color: $color_purple;
+    }
+    .price {
+      font-weight: 100;
+      font-size: 1.25rem;
+      color: $color_blue;
+    }
+    .description {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+    button {
+      position: fixed;
+      bottom: $marge * 4;
+      border: 2px solid $color_blue;
+      color: $color_white;
+      background: transparent;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-weight: 900;
+      font-size: 2rem;
+      width: 70%;
+      z-index: 999;
+      mix-blend-mode: difference;
+    }
+  }
+}
+.cd_images {
+  width: 100%;
+  padding: $marge;
+  position: relative;
+  height: 50dvh;
+  img {
+    transition: all ease 1s;
+    position: absolute;
+    width: 50%;
+    border-radius: $marge;
+    &:nth-of-type(1) {
+      top: 0;
+      left: 2%;
+    }
+    &:nth-of-type(2) {
+      top: 25%;
+      right: 10%;
+    }
+    &:nth-of-type(3) {
+      top: 40%;
+      left: 0;
+    }
+    &:nth-of-type(4) {
+      top: 55%;
+      right: 5%;
+      z-index: 999;
+    }
+  }
+}

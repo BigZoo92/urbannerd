@@ -1,0 +1,98 @@
+header {
+  height: 75px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $marge * 2;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  transition: all ease 0.3s;
+  &::before {
+    background-color: $color_black_transparent;
+    backdrop-filter: blur(10px) saturate(100%) contrast(80%) brightness(80%);
+    content: '';
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    inset: 0;
+    z-index: -1;
+  }
+  &.visible {
+    transform: translateY(0);
+  }
+
+  &.hidden {
+    transform: translateY(-100%);
+  }
+  nav {
+    width: 100%;
+    ul {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row-reverse;
+    }
+  }
+  aside {
+    width: 75%;
+    position: fixed;
+    height: 100dvh;
+    background-color: $color_black;
+    padding: $marge;
+    top: 0;
+    left: 0;
+    color: $color_white;
+    transition: all ease-in-out 0.3s;
+    .logout {
+      position: absolute;
+      right: $marge;
+      top: $marge;
+    }
+    .userInfo {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: $marge * 2;
+      width: 100%;
+      span {
+        color: $color_white;
+      }
+      a {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: $marge;
+        width: 100%;
+        color: $color_white;
+        p {
+          font-weight: 600;
+          color: $color_white;
+        }
+      }
+      nav {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: $marge;
+        width: 100%;
+        color: $color_white;
+        a {
+          font-weight: 800;
+          color: $color_white;
+          font-size: 1.75rem;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: $marge * 2;
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}

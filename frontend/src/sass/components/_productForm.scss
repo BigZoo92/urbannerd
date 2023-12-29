@@ -1,0 +1,21 @@
+.cd_createProduct {
+  height: inherit;
+  overflow-y: scroll;
+  h1 {
+    font-weight: 700;
+    color: $color_white;
+    font-size: 2rem;
+    text-align: left;
+    width: 100%;
+  }
+  .input_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $marge;
+    width: 100%;
+    label {
+      width: calc(50% - calc($marge / 2));
+    }
+  }
+}

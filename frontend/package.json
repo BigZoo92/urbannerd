@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sass": "sass --watch ./src/app/sass/main.scss ./public/style/style.css --style compressed"
+    "static": "next build && next export",
+    "sass": "sass --watch ./src/sass/main.scss ./src/style/style.css --style compressed"
   },
   "dependencies": {
     "@capacitor/android": "^5.6.0",
@@ -28,11 +29,12 @@
     "@types/react-dom": "18.2.13",
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.4",
-    "next": "13.5.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18",
     "react-hook-form": "^7.48.2",
     "react-lazy-load-image-component": "^1.6.0",
+    "react-router-dom": "^6.21.1",
     "sass": "^1.69.2",
     "three": "^0.159.0",
     "typescript": "5.2.2",
@@ -42,8 +44,16 @@
   "devDependencies": {
     "@capacitor/cli": "^5.6.0",
     "@phosphor-icons/react": "^2.0.14",
-    "@types/react": "^18.2.38",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "@types/react-lazy-load-image-component": "^1.6.3",
-    "@types/three": "^0.159.0"
+    "@types/three": "^0.159.0",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "prettier": "^3.1.1",
+    "typescript": "^5"
   }
 }
