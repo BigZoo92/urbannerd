@@ -1,0 +1,7 @@
+[build]
+build_command = "npm run build"
+
+[start]
+start_command = "npm run start"
+
+nixPkgs = ['...', 'nodejs_18']
