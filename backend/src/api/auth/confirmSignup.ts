@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { jwtToken } from '../../../constant';
+import { jwtToken } from '../../constant';
 import { PrismaClient, StatusUser } from '@prisma/client';
 
 const prisma = new PrismaClient();

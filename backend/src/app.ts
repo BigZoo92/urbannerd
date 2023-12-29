@@ -56,10 +56,10 @@ app.get('/', (_, res) => {
   res.send('Hello, World!');
 });
 
-// ROUTES
-app.use('/api', router);
+// // ROUTES
+// app.use('/api', router);
 
-// START THE SERVER
-app.listen(port, () => {
-  console.log(`Server is running on port 4000`);
-});
+// // START THE SERVER
+// app.listen(port, () => {
+//   console.log(`Server is running on port 4000`);
+// });

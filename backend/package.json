@@ -5,16 +5,20 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node ./src/app.ts",
-    "start": "nodemon src/index.ts",
-    "build": "tsc --project tsconfig.json && rimraf dist && tsc && git add dist && mkdirp dist/uploads && mkdirp dist/src/templates && xcopy \"./uploads\" \"./dist/uploads\" /E /I && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
-    "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
+    "start": "nodemon src/app.ts",
+    "tscheck": "tsc --noEmit --project tsconfig.json",
+    "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma",
+    "deleterouter": "rimraf ./dist/routes",
+    "addfiles": "mkdirp dist/uploads && xcopy \"./src/templates\" \"./dist/templates\" /E /I",
+    "prebuild": "npm run tscheck && rimraf dist && npm run prismagenerate",
+    "build": "tsc",
+    "postbuild": "npm run deleterouter && npm run addfiles",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
-    "ts.check",
+    "prebuild",
     "build",
-    "add-build"
+    "postbuild"
   ],
   "keywords": [],
   "author": "",

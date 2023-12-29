@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { hashPassword } from '../../../utils/password';
-import { searchUserByUsernameOrEmail } from '../../../utils/search';
+import { hashPassword } from '../../utils/password';
+import { searchUserByUsernameOrEmail } from '../../utils/search';
 import { PrismaClient, StatusUser } from '@prisma/client';
-import { SignupSchema, SignupSchemaType } from '../../../types';
-import { sendConfirmSignupMail } from '../../../utils';
+import { SignupSchema, SignupSchemaType } from '../../types';
+import { sendConfirmSignupMail } from '../../utils';
 
 const prisma = new PrismaClient();
 
