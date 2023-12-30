@@ -24,7 +24,7 @@ export const login = async (
       return res.status(401).json({ user: isPasswordValid, userExist: false });
     }
 
-    req.session.user = user;
+    req.session.user = JSON.parse(JSON.stringify(user));
     req.session.save((err) => {
       if (err) {
         console.error("Session save error:", err);
