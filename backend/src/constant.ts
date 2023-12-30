@@ -9,13 +9,7 @@ export const whitelist = ['http://localhost:3000'];
 
 // CORS
 export const corsOptions: CorsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || whitelist.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true,
 };
 
