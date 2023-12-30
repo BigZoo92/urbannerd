@@ -11,9 +11,6 @@ export const login = async (
   res: Response,
 ) => {
   const { usernameOrEmail, password }: LoginSchemaType = req.body;
-  console.info("LOGIN jwtToken", jwtToken)
-  console.log("LOGIN jwtToken", jwtToken)
-  console.error("LOGIN jwtToken", jwtToken)
   try {
     LoginSchema.parse({
       usernameOrEmail,
@@ -40,8 +37,8 @@ export const login = async (
             console.log(token);
         }
     });
-
-    res.status(200).json({ token, userExist: true });
+    console.log({ token, userExist: true })
+    res.status(200).json({ token: token, userExist: true });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);
     res

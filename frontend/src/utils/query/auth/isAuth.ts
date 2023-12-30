@@ -11,7 +11,6 @@ export const isAuth = async (): Promise<AuthSchemaType | undefined> => {
     const response = await fetch(process.env.SERVER_URL + '/checkAuthenticated', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token.value}`,
       },
     });
