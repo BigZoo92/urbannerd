@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 
 export const getBookmark = async (req: Request, res: Response) => {
-    const userId = req?.session?.user?.id;
-
-    if (!userId) {
-      return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
-    }
+  if(!req?.session?.user) return
+  const userId = JSON.parse(req?.session?.user).id;
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
+  }
 
     try {
       const bookmarks = await prisma.bookmark.findMany({

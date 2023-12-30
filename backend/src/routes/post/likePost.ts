@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 export const likePost = async (req: Request, res: Response) => {
   const postId = parseInt(req.body.postId);
-  const userId = req?.session?.user?.id;
-
-  if (!userId) {
-    return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
-  }
+  if(!req?.session?.user) return
+    const userId = JSON.parse(req?.session?.user).id;
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
+    }
 
   try {
     // Vérifier si le like existe déjà

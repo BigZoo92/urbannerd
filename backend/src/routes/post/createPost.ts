@@ -9,7 +9,8 @@ export const createPost = async (req: Request, res: Response) => {
   const {content} = req.body
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
   try {
-    const userId = req?.session?.user?.id;
+    if(!req?.session?.user) return
+    const userId = JSON.parse(req?.session?.user).id;
     if (!userId) {
       return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
     }

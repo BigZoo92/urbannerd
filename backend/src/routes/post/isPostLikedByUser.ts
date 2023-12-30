@@ -5,11 +5,8 @@ const prisma = new PrismaClient();
 
 export const isPostLikedByUser = async (req: Request, res: Response) => {
   const postId = parseInt(req.params.postId as string);
-  const userId = req?.session?.user?.id;
-
-  if (!userId) {
-    return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
-  }
+  if(!req?.session?.user) return
+  const userId = JSON.parse(req?.session?.user).id;
   try {
     const like = await prisma.postLike.findFirst({
       where: {

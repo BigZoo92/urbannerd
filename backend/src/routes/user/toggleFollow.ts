@@ -4,12 +4,12 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const toggleFollow = async (req: Request, res: Response) => {
-    const followerId = req?.session?.user?.id; 
+  if(!req?.session?.user) return
+  const followerId = JSON.parse(req?.session?.user).id;
+  if (!followerId) {
+    return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
+  }
     const followingId = parseInt(req.body.followingId); 
-  
-    if (!followerId) {
-      return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
-    }
   
     try {
       const existingSubscription = await prisma.subscription.findFirst({

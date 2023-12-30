@@ -12,7 +12,8 @@ export const createProduct = async (req: Request, res: Response) => {
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
   const sizes = ["S", "M", "L"]
   try {
-    const userId = req?.session?.user?.id;
+    if(!req?.session?.user) return
+    const userId = JSON.parse(req?.session?.user).id;
     if (!userId) {
       return res.status(401).json({ message: 'Unauthorized: User ID is missing.' });
     }
