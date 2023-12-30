@@ -29,8 +29,8 @@ export const login = async (
     if (!isPasswordValid) {
       return res.status(401).json({ user: null, userExist: true });
     }
-
-    const token = jwt.sign({ userId: user.id, username: user.username, website: user.bio, bio: user.bio, pp: user.pp, email: user.email }, jwtToken);
+    console.info("LOGIN jwtToken", jwtToken)
+    const token = jwt.sign({ userId: user.id, username: user.username, website: user.bio, bio: user.bio, pp: user.pp, email: user.email }, jwtToken, { expiresIn: '7d' });
 
     res.status(200).json({ token, userExist: true });
   } catch (error: any) {
