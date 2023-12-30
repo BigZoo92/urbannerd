@@ -30,8 +30,9 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     return(
-        <header className={showHeader ? "visible" : "hidden"}>
+        <header className={showHeader ? "visible" : "hidden"} ref={ref}>
             <nav>
                 <ul>
                     <li>
@@ -46,11 +47,11 @@ const Header = () => {
 
                     </li>
                     <li onClick={() => setIsOpen(!isOpen)}>
-                    <PhotoProfil userPP={user?.pp}/>
+                    <PhotoProfil userPP={user?.pp} onClick={() => setIsOpen(!open)}/>
                     </li>
                 </ul>
             </nav>
-            <aside style={{transform: isOpen ? "translateX(0)" : 'translateX(-100%)'}} ref={ref}>
+            <aside style={{transform: isOpen ? "translateX(0)" : 'translateX(-100%)'}}>
                 <div className="userInfo">
                     <div className='logout' onClick={async() => {
                         await logout()

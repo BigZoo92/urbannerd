@@ -1,1 +1,2 @@
-export * from './getAllProduct'
+export * from './getAllProduct';
+export * from './getProductWithId';

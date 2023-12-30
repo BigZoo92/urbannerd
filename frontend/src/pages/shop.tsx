@@ -4,7 +4,7 @@ import { useEffect} from "react";
 import ProductForm from "@urbannerd/components/Forms/ProductForm/ProductForm";
 import { useAuthContext } from "@urbannerd/provider/AuthProvider";
 import { getAllProduct } from "@urbannerd/utils";
-import Product from "@urbannerd/components/Product";
+import LittleProduct from "@urbannerd/components/LittleProduct";
 import Header from "@urbannerd/components/Header";
 import NavTab from "@urbannerd/components/NavTab";
 
@@ -25,7 +25,7 @@ const Shop = () => {
       <main>
       <section className="feed_product">
         {products && products.map((product, index) => (
-            <Product key={index} product={product} />
+            <LittleProduct key={index} product={product} />
           ))}
         </section>
         <ProductForm></ProductForm>

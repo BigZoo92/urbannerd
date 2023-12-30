@@ -55,7 +55,6 @@ const fetchProduct = async() => {
 
   const fetchUser = async () => {
     const authStatus = await isAuth();
-    console.log(authStatus)
     //@ts-ignore
     setUser(authStatus);
     if(!authStatus){

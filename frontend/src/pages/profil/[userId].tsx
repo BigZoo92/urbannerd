@@ -10,12 +10,10 @@ import { getFollowingsCount } from "@urbannerd/utils/query/user/getFollowingsCou
 import { getFollowersCount } from "@urbannerd/utils/query/user/getFollowersCount";
 import { fetchUserPosts } from "@urbannerd/utils/query/user/fetchUserPosts";
 import Post, { PostProps } from "@urbannerd/components/Posts";
+import LittleHeader from "@urbannerd/components/LittleHeader";
 
 const Profil = () => {
   const {user} = useAuthContext()
-
-  const [showHeader, setShowHeader] = useState(true);
-    const lastScrollY = useRef(0);
     const [followers, setFollowers] = useState<number | null>(null)
     const [follows, setFollows] = useState<number | null>(null)
     const [posts, setPosts] = useState<PostProps[] | null>(null)
@@ -34,26 +32,12 @@ const Profil = () => {
         setFollows(await getFollowersCount(user?.id))
       })()
   }, [user, setFollowers, setFollows]);
-
-    useEffect(() => {
-      const handleScroll = () => {
-          const currentScrollY = window.scrollY;
-          setShowHeader(currentScrollY < lastScrollY.current);
-          lastScrollY.current = currentScrollY;
-      };
-  
-      window.addEventListener('scroll', handleScroll);
-  
-      return () => {
-          window.removeEventListener('scroll', handleScroll);
-      };
-  }, []);
   
   if(!user) return null
     return (
       <>
         <main className="profil_main">
-        <header className={showHeader ? "visible" : "hidden"}>
+        <LittleHeader>
           <Link href='/'>
           <ArrowLeftIcons 
             iconProps={{
@@ -65,7 +49,7 @@ const Profil = () => {
             <h1>{user?.username}</h1>
             <h3>{posts?.length} Posts</h3>
           </div>
-        </header>
+        </LittleHeader>
         <div className="cd_pp">
             <PhotoProfil userPP={user?.pp}></PhotoProfil>
             <Link href="/profil-edit">Edit profile</Link>
