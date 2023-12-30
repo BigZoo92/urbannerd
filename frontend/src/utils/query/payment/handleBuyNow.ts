@@ -5,7 +5,7 @@ export const handleBuyNow = async (price: number, productId: number, productName
     if(!stripe) return
     try {
 
-      const response = await fetch('https://afdf-2001-861-5e60-3110-7074-d229-b5bd-e6b.ngrok-free.app/api/paiement', {
+      const response = await fetch(process.env.SERVER_URL + '/paiement', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

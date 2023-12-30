@@ -1,32 +1,14 @@
 import express from 'express';
-import { signup, login, confirmSignup, logout } from './auth';
-import { getUserInfo } from './user';
+import { signup, login, confirmSignup, logout, isAuth } from './auth';
+import { getUserInfo, editUserInfo, getBookmark, getFollowersCount, getFollowingsCount, toggleFollow, isUserFollowing, getUserInfoWithId } from './user';
 
 import { AuthSchemaType } from '../types';
-import { createPost } from './post/createPost';
+import { createPost, getAllPosts, likePost, isPostLikedByUser, toggleBookmark, isPostBookmarkedByUser, getPostLikesCount, getUserLikedPosts, getUserPosts } from './post';
 import { checkAuthenticated } from '../middlewares';
 
-import { getAllPosts } from './post/getAllPosts';
-import { isAuth } from './auth/isAuth';
 import { upload } from '../constant';
-import { editUserInfo } from './user/editUserInfo';
-import { getUserInfoWithId } from './user/getUserInfoWithId';
-import { likePost } from './post';
-import { isPostLikedByUser } from './post/isPostLikedByUser ';
-import { toggleBookmark } from './post/toggleBookmark ';
-import { isPostBookmarkedByUser } from './post/isPostBookmarkedByUser ';
-import { getBookmark } from './user/getBookmark';
-import { getPostLikesCount } from './post/getPostLikesCount';
-import { getUserLikedPosts } from './post/getUserLikedPosts';
-import { getUserPosts } from './post/getUserPosts';
-import { createProduct } from './product/createProduct';
-import { getAllProduct } from './product/getAllProduct';
-import { getProductWithId } from './product/getProductWithId';
+import { createProduct, getProductWithId, getAllProduct } from './product';
 import { payment } from './payment';
-import { getFollowersCount } from './user/getFollowersCount';
-import { getFollowingsCount } from './user/getFollowingsCount';
-import { toggleFollow } from './user/toggleFollow';
-import { isUserFollowing } from './user/isUserFollowing';
 
 declare global {
   namespace Express {

@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "tscheck": "tsc --noEmit --project tsconfig.json",
     "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma && npx prisma migrate deploy --schema=./src/prisma/schema.prisma",
-    "build": "npm run tscheck && rimraf dist && npm run prismagenerate && tsc",
+    "build": "npm run tscheck && rimraf dist && npm run prismagenerate && tsc && npm run copytemplates",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,6 +20,8 @@
     "@types/pg-promise": "^5.4.3",
     "bcrypt": "^5.1.1",
     "busboy": "^1.6.0",
+    "copytemplates": "ncp src/templates dist/templates",
+    "ncp": "^2.0.0",
     "compression": "^1.7.4",
     "connect-busboy": "^1.0.0",
     "cookie-parser": "^1.4.6",

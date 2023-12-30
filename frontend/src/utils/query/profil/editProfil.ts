@@ -6,7 +6,7 @@ export const editProfil = async (formData: EditProfilType, file?: File) => {
     formDataObj.append('website', formData.website || '');
     formDataObj.append('bio', formData.bio || '');
     file && formDataObj.append('pp', file);
-    const response = await fetch('https://afdf-2001-861-5e60-3110-7074-d229-b5bd-e6b.ngrok-free.app/api/editProfil', {
+    const response = await fetch(process.env.SERVER_URL + '/editProfil', {
       method: 'POST',
       //@ts-ignore
       body: formDataObj,

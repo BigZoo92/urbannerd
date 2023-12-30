@@ -3,7 +3,7 @@ import { LoginSchema, LoginSchemaType } from '../../../types';
 export const login = async (formData: LoginSchemaType): Promise<void> => {
   LoginSchema.parse(formData);
   try {
-    const response = await fetch('https://afdf-2001-861-5e60-3110-7074-d229-b5bd-e6b.ngrok-free.app/api/auth/login', {
+    const response = await fetch(process.env.SERVER_URL + '/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

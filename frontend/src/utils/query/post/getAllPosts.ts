@@ -1,6 +1,7 @@
 export const getAllPosts = async () => {
     try {
-      const response = await fetch('https://afdf-2001-861-5e60-3110-7074-d229-b5bd-e6b.ngrok-free.app/api/getAllPosts', {
+      console.log(process.env.SERVER_URL)
+      const response = await fetch(process.env.SERVER_URL + '/getAllPosts', {
         credentials: "include",
       method: 'POST',
       headers: {
