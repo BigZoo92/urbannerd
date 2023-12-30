@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { UserJwtPayload } from '../../types';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const likePost = async (req: Request, res: Response) => {
   const postId = parseInt(req.body.postId);
@@ -46,7 +44,7 @@ export const likePost = async (req: Request, res: Response) => {
         },
       });
     }
-
+    await prisma.$disconnect();
     res.status(201).json({ message: 'Post liked/unliked successfully.' });
   } catch (error) {
     console.error("Erreur lors du like/unlike du post :", error);

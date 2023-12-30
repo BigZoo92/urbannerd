@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const getFollowersCount = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.userId);
@@ -12,7 +10,7 @@ export const getFollowersCount = async (req: Request, res: Response) => {
           followingId: userId,
         },
       });
-  
+      await prisma.$disconnect();
       res.status(200).json({ followersCount });
     } catch (error) {
       console.error("Erreur lors de la récupération du nombre de followers :", error);

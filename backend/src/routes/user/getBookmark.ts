@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { UserJwtPayload } from '../../types';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 
 export const getBookmark = async (req: Request, res: Response) => {
@@ -33,7 +31,7 @@ export const getBookmark = async (req: Request, res: Response) => {
           post: true,
         },
       });
-
+      await prisma.$disconnect();
       res.status(200).json({ bookmarks });
     } catch (error) {
       console.error("Erreur lors de la récupération des bookmarks :", error);

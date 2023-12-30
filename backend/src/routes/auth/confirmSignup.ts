@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../..';
 
 enum StatusUser {Unconfirmed = "Unconfirmed", Confirmed ="Confirmed"}
 
-const prisma = new PrismaClient();
 
 export const confirmSignup = async (req: Request, res: Response) => {
   const { token } = req.query;
@@ -41,7 +40,7 @@ export const confirmSignup = async (req: Request, res: Response) => {
         status: StatusUser.Confirmed, // Assurez-vous que le statut est "Confirmed" ici
       },
     });
-
+    await prisma.$disconnect();
     // Redirection après la confirmation
     res.redirect('http://localhost:3000');
   } catch (error) {

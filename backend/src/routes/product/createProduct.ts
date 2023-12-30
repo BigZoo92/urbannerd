@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-import { ProductSchema, ProductSchemaType, UserJwtPayload } from '../../types'; 
+import { UserJwtPayload } from '../../types'; 
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const createProduct = async (req: Request, res: Response) => {
   const { name, description, price, stock } = req.body;
@@ -57,7 +54,7 @@ export const createProduct = async (req: Request, res: Response) => {
         userId
       },
     });
-
+    await prisma.$disconnect();
     res.status(201).json({ product: newProduct });
 
   } catch (error: any) {

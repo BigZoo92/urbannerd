@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const getProductWithId = async (req: Request<{}, {}, any>, res: Response) => {
   //@ts-ignore
@@ -10,6 +8,7 @@ export const getProductWithId = async (req: Request<{}, {}, any>, res: Response)
     const product = await prisma.product.findFirst({
         where: { id: { equals: parseInt(productId) } },
       });
+      await prisma.$disconnect();
     res.status(201).json({product: product});
   } catch (error: any) {
     console.error(error);

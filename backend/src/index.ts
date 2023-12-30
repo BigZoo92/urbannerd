@@ -7,6 +7,9 @@ import { corsOptions, port } from './constant';
 import path from 'path';
 import compression from 'compression';
 import morgan from 'morgan';
+import { PrismaClient } from '@prisma/client';
+
+export const prisma = new PrismaClient();
 
 // INIT
 dotenv.config();

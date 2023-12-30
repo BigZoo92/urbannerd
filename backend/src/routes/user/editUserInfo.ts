@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { EditProfil, EditProfilType, UserJwtPayload } from '../../types';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const editUserInfo = async (req: Request, res: Response) => {
   const {bio, website} = req.body
@@ -43,7 +40,7 @@ export const editUserInfo = async (req: Request, res: Response) => {
       where:{id: userId},
         data: postData,
       });
-
+      await prisma.$disconnect();
     res.status(201).json({ user: user });
 
   } catch (error: any) {

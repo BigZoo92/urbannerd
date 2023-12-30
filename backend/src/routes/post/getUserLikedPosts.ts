@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const getUserLikedPosts = async(req: Request, res: Response) => {
     const { userId } = req.params;
@@ -15,6 +13,7 @@ export const getUserLikedPosts = async(req: Request, res: Response) => {
           post: true,
         },
       });
+      await prisma.$disconnect();
       res.json(likedPosts);
     } catch (error) {
       res.status(500).send("Server Error");

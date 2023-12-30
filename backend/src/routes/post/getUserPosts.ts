@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const getUserPosts = async(req: Request, res: Response) => {
     const { userId } = req.params;
@@ -12,6 +10,7 @@ export const getUserPosts = async(req: Request, res: Response) => {
           userId: parseInt(userId),
         },
       });
+      await prisma.$disconnect();
       res.json(userPosts);
     } catch (error) {
       res.status(500).send("Server Error");

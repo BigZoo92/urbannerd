@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
 import { hashPassword } from '../../utils/password';
 import { searchUserByUsernameOrEmail } from '../../utils/search';
-import { PrismaClient } from '@prisma/client';
 import { SignupSchema, SignupSchemaType } from '../../types';
 import { sendConfirmSignupMail } from '../../utils';
+import { prisma } from '../..';
 
 enum StatusUser {Unconfirmed = "Unconfirmed", Confirmed ="Confirmed"}
-
-const prisma = new PrismaClient();
 
 export const signup = async (
   req: Request<{}, {}, SignupSchemaType>,
@@ -36,7 +34,7 @@ export const signup = async (
         status: StatusUser.Unconfirmed,
       },
     });
-
+    await prisma.$disconnect();
     try {
       await sendConfirmSignupMail(email);
     } catch (error) {

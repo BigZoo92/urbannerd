@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { UserJwtPayload } from '../../types';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const toggleFollow = async (req: Request, res: Response) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -44,7 +42,7 @@ export const toggleFollow = async (req: Request, res: Response) => {
           },
         });
       }
-  
+      await prisma.$disconnect();
       res.status(201).json({ message: 'Subscription updated successfully.' });
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'abonnement :", error);

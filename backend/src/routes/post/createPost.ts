@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { PostSchema, PostSchemaType } from '../../types';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
 import { UserJwtPayload } from '../../types';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const createPost = async (req: Request, res: Response) => {
   const { content } = req.body;
@@ -44,7 +42,7 @@ export const createPost = async (req: Request, res: Response) => {
         files: filesPath,
       },
     });
-
+    await prisma.$disconnect();
     res.status(201).json({ post: newPost });
 
   } catch (error: any) {

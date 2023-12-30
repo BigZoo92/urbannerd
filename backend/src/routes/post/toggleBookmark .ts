@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { UserJwtPayload } from '../../types';
 import jwt from 'jsonwebtoken';
 import { jwtToken } from '../../constant';
-
-const prisma = new PrismaClient();
+import { prisma } from '../..';
 
 export const toggleBookmark = async (req: Request, res: Response) => {
   const postId = parseInt(req.body.postId);
@@ -44,7 +42,7 @@ export const toggleBookmark = async (req: Request, res: Response) => {
         },
       });
     }
-
+    await prisma.$disconnect();
     res.status(201).json({ message: 'Bookmark toggled successfully.' });
   } catch (error) {
     console.error("Erreur lors du toggle du bookmark :", error);
