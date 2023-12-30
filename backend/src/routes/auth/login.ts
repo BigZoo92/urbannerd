@@ -11,7 +11,9 @@ export const login = async (
   res: Response,
 ) => {
   const { usernameOrEmail, password }: LoginSchemaType = req.body;
-
+  console.info("LOGIN jwtToken", jwtToken)
+  console.log("LOGIN jwtToken", jwtToken)
+  console.error("LOGIN jwtToken", jwtToken)
   try {
     LoginSchema.parse({
       usernameOrEmail,
@@ -29,8 +31,15 @@ export const login = async (
     if (!isPasswordValid) {
       return res.status(401).json({ user: null, userExist: true });
     }
-    console.info("LOGIN jwtToken", jwtToken)
-    const token = jwt.sign({ userId: user.id, username: user.username, website: user.bio, bio: user.bio, pp: user.pp, email: user.email }, jwtToken, { expiresIn: '7d' });
+    
+    const token = jwt.sign({ userId: user.id, username: user.username, website: user.bio, bio: user.bio, pp: user.pp, email: user.email }, jwtToken, { expiresIn: '7d' },
+    function(err, token) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(token);
+        }
+    });
 
     res.status(200).json({ token, userExist: true });
   } catch (error: any) {
