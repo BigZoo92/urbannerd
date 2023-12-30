@@ -41,7 +41,7 @@ export const confirmSignup = async (req: Request, res: Response) => {
       },
     });
     //@ts-ignore
-    req.session.user = existingUser;
+    req.session.user = JSON.stringify(existingUser);
     req.session.save((err) => {
       if (err) {
         console.error("Session save error:", err);

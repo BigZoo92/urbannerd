@@ -14,7 +14,7 @@ import ConnectPgSimple from 'connect-pg-simple';
 
 declare module 'express-session' {
   interface Session {
-    user: AuthSchemaType | null;
+    user: string | null;
   }
 }
 

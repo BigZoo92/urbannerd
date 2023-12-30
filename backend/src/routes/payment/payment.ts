@@ -4,7 +4,9 @@ import { Request, Response } from 'express';
 
 export const payment = async (req: Request, res: Response) => {
     const { price, productId, productName, productImage } = req.body;
-    const email = req.session.user?.email
+    if (!req.session.user) return
+    const user = JSON.parse(req.session.user)
+    const email = user.email
     if(!process.env.STRIPE_SECRET_KEY) return
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     try {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { comparePasswords } from '../../utils/password';
 import { searchUserByUsernameOrEmail } from '../../utils/search';
-import { LoginSchema, LoginSchemaType } from '../../types';
+import { AuthSchemaType, LoginSchema, LoginSchemaType } from '../../types';
 
 export const login = async (
   req: Request<{}, {}, LoginSchemaType>,
@@ -23,8 +23,8 @@ export const login = async (
     if (!isPasswordValid) {
       return res.status(401).json({ user: isPasswordValid, userExist: false });
     }
-
-    req.session.user = JSON.parse(JSON.stringify(user));
+    
+    req.session.user = JSON.stringify(user);
     req.session.save((err) => {
       if (err) {
         console.error("Session save error:", err);
@@ -33,6 +33,8 @@ export const login = async (
       }
     });
     console.log("USER LOGIN", req.session.user)
+    if(!req.session.user)return
+    const sendUser: AuthSchemaType = JSON.parse(req.session.user)
     res.status(200).json({ user: req.session.user, userExist: true });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);
