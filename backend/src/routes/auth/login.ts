@@ -3,7 +3,7 @@ import { comparePasswords } from '../../utils/password';
 import { searchUserByUsernameOrEmail } from '../../utils/search';
 import { AuthSchemaType, LoginSchema, LoginSchemaType } from '../../types';
 import jwt from 'jsonwebtoken';
-const jwtToken = '../../constant.ts';
+import {jwtToken} from '../../constant';
 
 
 export const login = async (
