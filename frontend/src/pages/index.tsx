@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import Loader from '@urbannerd/components/Loader';
-import PostForm from '@urbannerd/components/PostForm/PostForm';
+import PostForm from '@urbannerd/components/Forms/PostForm/PostForm';
 import { useAuthContext } from '@urbannerd/provider/AuthProvider';
 import { getAllPosts } from '@urbannerd/utils';
 import Post from '@urbannerd/components/Posts';

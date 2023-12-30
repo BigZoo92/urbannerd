@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect} from "react";
-import ProductForm from "@urbannerd/components/ProductForm/ProductForm";
+import ProductForm from "@urbannerd/components/Forms/ProductForm/ProductForm";
 import { useAuthContext } from "@urbannerd/provider/AuthProvider";
 import { getAllProduct } from "@urbannerd/utils";
 import Product from "@urbannerd/components/Product";

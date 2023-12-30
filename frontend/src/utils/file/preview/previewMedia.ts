@@ -1,4 +1,4 @@
-import { getUrl } from "./getUrl";
+import { getUrl } from "../processing/getUrl";
 import { captureModelFrame } from "./captureModelFrame";
 import { captureVideoFrame } from "./captureVideoFrame";
 

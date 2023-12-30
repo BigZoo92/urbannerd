@@ -8,7 +8,7 @@ import { colors } from "@urbannerd/constant";
 import Link from "next/link";
 import { ArrowLeftIcons } from "@urbannerd/components/Icons";
 import { getUrl, openFileUpload } from "@urbannerd/utils";
-import InputText from "@urbannerd/components/InputText";
+import InputText from "@urbannerd/components/Forms/InputText";
 import PhotoProfil from "@urbannerd/components/PhotoProfil";
 import { Toast } from "@capacitor/toast";
 import { useRouter } from 'next/navigation';
