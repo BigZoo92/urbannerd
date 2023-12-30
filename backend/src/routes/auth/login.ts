@@ -8,7 +8,6 @@ export const login = async (
   res: Response,
 ) => {
   const { usernameOrEmail, password }: LoginSchemaType = req.body;
-  console.info(password)
   try {
     LoginSchema.parse({
       usernameOrEmail,
@@ -26,8 +25,13 @@ export const login = async (
     }
 
     req.session.user = user;
-    req.session.save()
-    console.info(req.session.user)
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+      } else {
+        console.log("Session saved successfully");
+      }
+    });
     res.status(200).json({ user: req.session.user, userExist: true });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);

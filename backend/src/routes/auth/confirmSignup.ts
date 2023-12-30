@@ -42,6 +42,13 @@ export const confirmSignup = async (req: Request, res: Response) => {
     });
     //@ts-ignore
     req.session.user = existingUser;
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+      } else {
+        console.log("Session saved successfully");
+      }
+    });
     res.redirect('http://localhost:3000');
   } catch (error) {
     console.error("Erreur lors de la confirmation d'inscription :", error);

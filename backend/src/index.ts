@@ -5,18 +5,20 @@ import helmet from 'helmet';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import router from './routes/routes';
-import { corsOptions, port, secret } from './constant';
+import { corsOptions, port, secret, bddUrl } from './constant';
 import { AuthSchemaType } from './types';
 import path from 'path';
 import compression from 'compression';
 import morgan from 'morgan';
-
+import ConnectPgSimple from 'connect-pg-simple';
 
 declare module 'express-session' {
   interface Session {
     user: AuthSchemaType | null;
   }
 }
+
+const pgSession = ConnectPgSimple(session);
 
 // INIT
 dotenv.config();
@@ -25,7 +27,6 @@ const app = express();
 app.use(express.json());
 
 // SESSION
-console.info(secret)
 app.use(cookieParser(secret));
 app.use(
   session({
@@ -33,10 +34,15 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true, // true en production, false en développement
+      secure: false, // true en production, false en développement
       maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true,
+      httpOnly: false,
     },
+    store: new pgSession({
+      conString: bddUrl, 
+      errorLog: (message) => console.error('Session Store Error:', message),
+      createTableIfMissing: true
+    }),
   }),
 );
 
