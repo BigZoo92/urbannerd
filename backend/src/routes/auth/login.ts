@@ -32,6 +32,7 @@ export const login = async (
         console.log("Session saved successfully");
       }
     });
+    console.log("USER LOGIN", req.session.user)
     res.status(200).json({ user: req.session.user, userExist: true });
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);
