@@ -29,16 +29,20 @@ export const login = async (
       return res.status(401).json({ user: null, userExist: true });
     }
     
-    const token = jwt.sign({ userId: user.id, username: user.username, website: user.bio, bio: user.bio, pp: user.pp, email: user.email }, jwtToken, { expiresIn: '7d' },
-    function(err, token) {
+    jwt.sign(
+      { userId: user.id, username: user.username, website: user.bio, bio: user.bio, pp: user.pp, email: user.email },
+      jwtToken,
+      { expiresIn: '7d' },
+      (err, token) => {
         if (err) {
-            console.log(err);
+          console.error("Erreur lors de la génération du token :", err);
+          return res.status(500).json({ message: 'Erreur lors de la génération du token' });
         } else {
-            console.log(token);
+          console.log(token);
+          res.status(200).json({ token, userExist: true });
         }
-    });
-    console.log({ token, userExist: true })
-    res.status(200).json({ token: token, userExist: true });
+      }
+    );
   } catch (error: any) {
     console.error("Erreur lors de l'authentification :", error.errors);
     res
