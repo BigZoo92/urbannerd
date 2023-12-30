@@ -1,21 +1,12 @@
 import express from 'express';
 import { signup, login, confirmSignup, isAuth } from './auth';
-import { getUserInfo, editUserInfo, getBookmark, getFollowersCount, getFollowingsCount, toggleFollow, isUserFollowing, getUserInfoWithId } from './user';
+import { editUserInfo, getBookmark, getFollowersCount, getFollowingsCount, toggleFollow, isUserFollowing, getUserInfoWithId } from './user';
 
-import { AuthSchemaType } from '../types';
 import { createPost, getAllPosts, likePost, isPostLikedByUser, toggleBookmark, isPostBookmarkedByUser, getPostLikesCount, getUserLikedPosts, getUserPosts } from './post';
 
 import { upload } from '../constant';
 import { createProduct, getProductWithId, getAllProduct } from './product';
 import { payment } from './payment';
-
-declare global {
-  namespace Express {
-    interface Session {
-      _user?: AuthSchemaType | null;
-    }
-  }
-}
 
 const router = express.Router();
 
@@ -29,9 +20,6 @@ router.post('/checkAuthenticated', (req, res) => isAuth(req, res));
 
 // LOGIN ROUTE
 router.post('/auth/login', (req, res) => login(req, res));
-
-//GET USER INFO
-router.get('/info/user', (req, res) => getUserInfo(req, res));
 
 //POST ROUTE
 router.post('/post', upload,  (req, res) => createPost(req, res));
