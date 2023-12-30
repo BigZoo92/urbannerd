@@ -4,14 +4,15 @@ import { Preferences } from '@capacitor/preferences';
 
 export const isAuth = async (): Promise<AuthSchemaType | undefined> => {
   try {
-    const { value: token } = await Preferences.get({ key: 'jwtToken' });
-    if (!token) return undefined;
+    const token = await Preferences.get({ key: 'jwtToken' });
+    console.log(token.value)
+    if (!token.value) return undefined;
 
     const response = await fetch(process.env.SERVER_URL + '/checkAuthenticated', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token.value}`,
       },
     });
 
@@ -21,6 +22,7 @@ export const isAuth = async (): Promise<AuthSchemaType | undefined> => {
       return undefined;
     } else {
       const responseData: AuthSchemaType = await response.json();
+      console.log(responseData)
       return responseData;
     }
   } catch (error) {

@@ -17,7 +17,6 @@ export const login = async (formData: LoginSchemaType): Promise<void> => {
       console.error('Login failed:', errorData);
     } else {
       const responseData = await response.json();
-
       await Preferences.set({
         key: 'jwtToken',
         value: responseData.token,
