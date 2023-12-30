@@ -1,7 +1,6 @@
 import { SignupSchemaType } from '../../../types'; // Remplace path-to-your-types par le chemin correct
 
 export const signup = async (formData: SignupSchemaType) => {
-  console.log(formData)
   try {
     const response = await fetch(process.env.SERVER_URL + '/auth/signup', {
       method: 'POST',
@@ -13,7 +12,6 @@ export const signup = async (formData: SignupSchemaType) => {
     });
 
     if (!response.ok) {
-      // Gérer les erreurs ici, par exemple, afficher un message d'erreur
       throw new Error('Signup failed');
     }
 

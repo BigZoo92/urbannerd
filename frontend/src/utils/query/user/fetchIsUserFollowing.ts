@@ -5,7 +5,6 @@ export const fetchIsUserFollowing = async (followingId: number) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
       });
   
       const data = await response.json();

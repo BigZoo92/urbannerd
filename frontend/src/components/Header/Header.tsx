@@ -4,7 +4,7 @@ import { colors } from "@urbannerd/constant"
 import { BookmarkIcons, SettingsIcons, SignOutIcons } from "../Icons"
 import { useEffect, useRef, useState } from "react"
 import { useClickOutside } from "@urbannerd/hook/useClickOutside";
-import { logout } from "@urbannerd/utils/query/auth";
+import { logout } from "@urbannerd/utils";
 import { useAuthContext } from "@urbannerd/provider/AuthProvider";
 import PhotoProfil from "../PhotoProfil";
 import Link from "next/link";

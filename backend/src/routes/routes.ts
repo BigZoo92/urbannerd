@@ -1,10 +1,9 @@
 import express from 'express';
-import { signup, login, confirmSignup, logout, isAuth } from './auth';
+import { signup, login, confirmSignup, isAuth } from './auth';
 import { getUserInfo, editUserInfo, getBookmark, getFollowersCount, getFollowingsCount, toggleFollow, isUserFollowing, getUserInfoWithId } from './user';
 
 import { AuthSchemaType } from '../types';
 import { createPost, getAllPosts, likePost, isPostLikedByUser, toggleBookmark, isPostBookmarkedByUser, getPostLikesCount, getUserLikedPosts, getUserPosts } from './post';
-import { checkAuthenticated } from '../middlewares';
 
 import { upload } from '../constant';
 import { createProduct, getProductWithId, getAllProduct } from './product';
@@ -24,8 +23,6 @@ const router = express.Router();
 router.post('/auth/signup', (req, res) => signup(req, res));
 router.get('/auth/confirmSignup', (req, res) => confirmSignup(req, res));
 
-// LOGOUT ROUTE
-router.get('/auth/logout', (req, res) => logout(req, res));
 
 // LOGIN ROUTE
 router.post('/checkAuthenticated', (req, res) => isAuth(req, res));
@@ -37,16 +34,16 @@ router.post('/auth/login', (req, res) => login(req, res));
 router.get('/info/user', (req, res) => getUserInfo(req, res));
 
 //POST ROUTE
-router.post('/post', checkAuthenticated, upload,  (req, res) => createPost(req, res));
+router.post('/post', upload,  (req, res) => createPost(req, res));
 
 //GET ALL POST
-router.post('/getAllPosts', checkAuthenticated,  (req, res) => getAllPosts(req, res));
+router.post('/getAllPosts',  (req, res) => getAllPosts(req, res));
 
 //GET ALL PRODUCT
-router.post('/getAllProduct', checkAuthenticated,  (req, res) => getAllProduct(req, res));
+router.post('/getAllProduct',  (req, res) => getAllProduct(req, res));
 
 //EDIT USER INFO
-router.post('/editProfil', checkAuthenticated, upload,  (req, res) => editUserInfo(req, res));
+router.post('/editProfil', upload,  (req, res) => editUserInfo(req, res));
 
 //GET USER INFO WITH HIS ID
 router.get('/getUserInfoWithId/:userId',  (req, res) => getUserInfoWithId(req, res));
@@ -58,16 +55,16 @@ router.get('/getProductWithId/:productId',  (req, res) => getProductWithId(req, 
 router.post('/like',  (req, res) => likePost(req, res));
 
 //GET LIKE
-router.get('/isPostLikedByUser/:postId', checkAuthenticated, (req, res) => isPostLikedByUser(req, res));
+router.get('/isPostLikedByUser/:postId', (req, res) => isPostLikedByUser(req, res));
 
 //BOOKMARK
-router.post('/toggleBookmark', checkAuthenticated, toggleBookmark);
+router.post('/toggleBookmark', toggleBookmark);
 
 //GET BOOKMARK STAT
-router.get('/isPostBookmarkedByUser/:postId', checkAuthenticated, isPostBookmarkedByUser);
+router.get('/isPostBookmarkedByUser/:postId', isPostBookmarkedByUser);
 
 //GET BOOKMARK
-router.get('/bookmark', checkAuthenticated, getBookmark);
+router.get('/bookmark', getBookmark);
 
 // GET LIKE COUNT
 router.get('/post/:postId/likes/count', (req, res) => getPostLikesCount(req, res));
@@ -79,12 +76,12 @@ router.get('/user/:userId/likedPosts', (req, res) => getUserLikedPosts(req, res)
 router.get('/user/:userId/posts', (req, res) => getUserPosts(req, res));
 
 // CREAT PRODUCT
-router.post('/product/create', checkAuthenticated, upload, (req, res) => createProduct(req, res));
+router.post('/product/create', upload, (req, res) => createProduct(req, res));
 
 // PAY
-router.post('/paiement', checkAuthenticated, (req, res) => payment(req, res));
+router.post('/paiement', (req, res) => payment(req, res));
 
-router.post('/user/toggleFollow', checkAuthenticated, toggleFollow);
+router.post('/user/toggleFollow', toggleFollow);
 router.get('/user/:userId/followers/count', getFollowersCount);
 router.get('/user/:userId/followings/count', getFollowingsCount);
 router.get('/user/:followingId/isFollowing', isUserFollowing);

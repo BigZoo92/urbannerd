@@ -2,7 +2,6 @@ export const getFollowersCount = async (userId: number) => {
     try {
       const response = await fetch(`http://localhost:4000/api/user/${userId}/followers/count`, {
         method: 'GET',
-        credentials: 'include',
       });
   
       const data = await response.json();

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import jwt from 'jsonwebtoken';
 enum StatusUser {Unconfirmed = "Unconfirmed", Confirmed ="Confirmed"}
 export const AuthSchema = z.object({
   id: z.number(),
@@ -12,6 +13,16 @@ export const AuthSchema = z.object({
 });
 
 export type AuthSchemaType = z.TypeOf<typeof AuthSchema>;
+
+export interface UserJwtPayload extends jwt.JwtPayload {
+  email: string;
+  id: number;
+  bio: string;
+  website: string;
+  pp: string;
+  status: StatusUser;
+  username: string;
+}
 
 export const LoginSchema = z.object({
   usernameOrEmail: z.string().min(4),

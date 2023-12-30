@@ -1,4 +1,5 @@
-import { EditProfilType } from "../../../types";
+import { Preferences } from "@capacitor/preferences";
+import { EditProfilType } from "@urbannerd/types";
 
 export const editProfil = async (formData: EditProfilType, file?: File) => {
   try {
@@ -6,11 +7,14 @@ export const editProfil = async (formData: EditProfilType, file?: File) => {
     formDataObj.append('website', formData.website || '');
     formDataObj.append('bio', formData.bio || '');
     file && formDataObj.append('pp', file);
+    const { value: token } = await Preferences.get({ key: 'jwtToken' });
     const response = await fetch(process.env.SERVER_URL + '/editProfil', {
       method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
       //@ts-ignore
       body: formDataObj,
-      credentials: "include"
     });
 
     if (!response.ok) {

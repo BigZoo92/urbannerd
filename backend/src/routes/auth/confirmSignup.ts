@@ -32,23 +32,17 @@ export const confirmSignup = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "L'utilisateur n'existe pas" });
     }
 
+    // Mettre à jour le statut de l'utilisateur en tant que confirmé
     await prisma.user.update({
       where: {
         email: email,
       },
       data: {
-        status: StatusUser.Unconfirmed,
+        status: StatusUser.Confirmed, // Assurez-vous que le statut est "Confirmed" ici
       },
     });
-    //@ts-ignore
-    req.session.user = JSON.stringify(existingUser);
-    req.session.save((err) => {
-      if (err) {
-        console.error("Session save error:", err);
-      } else {
-        console.log("Session saved successfully");
-      }
-    });
+
+    // Redirection après la confirmation
     res.redirect('http://localhost:3000');
   } catch (error) {
     console.error("Erreur lors de la confirmation d'inscription :", error);

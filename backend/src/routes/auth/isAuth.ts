@@ -1,14 +1,18 @@
 import { Request, Response } from 'express';
 
-export const isAuth = (
-  req: Request,
-  res: Response,
-) => {
-  console.info("USER ISAUTH", req.session.user)
-    if(req.session.user){
-      res.status(201).json(JSON.parse(req.session.user));
-    }else{
-      res.status(201).json(null);
-    }
-  
+import jwt from 'jsonwebtoken';
+import { jwtToken } from '../../constant';
+
+export const isAuth = (req: Request, res: Response) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Bearer Token
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, jwtToken);
+    res.status(200).json(decoded);
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+  }
 };

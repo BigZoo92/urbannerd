@@ -8,7 +8,6 @@ export const getUserInfoWithId = async (id: number): Promise<{user: AuthSchemaTy
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
     });
 
     if (!response.ok) {
