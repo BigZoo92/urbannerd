@@ -24,7 +24,7 @@ export const secret = process.env.SESSION_SECRET || "session_secret_not_found";
 export const jwtToken = process.env.JWT_SECRET || "jwt_secret_not_found";
 
 export const storage = multer.diskStorage({
-  destination: "./src/uploads",
+  destination: path.join(__dirname, "./uploads"),
   filename: function (req, file, cb) {
     cb(
       null,
