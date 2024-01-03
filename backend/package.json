@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "start": "node dist/index.js",
-    "copytemplates": "ncp src/templates dist/templates",
-    "createuploads": "mkdir -p dist/uploads",
+    "copytemplates": "copyfiles ./src/templates dist/templates",
+    "createuploads": "copyfiles -u 1 src/**/*.html src/**/*.css dist/ && copyfiles ./uploads/ ./dist/",
     "tscheck": "tsc --noEmit --project tsconfig.json",
     "prismagenerate": "npx prisma generate --schema=./src/prisma/schema.prisma && npx prisma migrate deploy --schema=./src/prisma/schema.prisma",
-    "build": "CI=false npm run tscheck && rimraf dist && npm run prismagenerate && tsc && npm run copytemplates && npm run createuploads",
+    "build": "npm run tscheck && rimraf dist && npm run prismagenerate && tsc && npm run copytemplates && npm run createuploads",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

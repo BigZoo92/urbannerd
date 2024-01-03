@@ -1,6 +1,5 @@
 node_modules/
 secret/
-uploads/
 .env
 dist/
 .vercel
