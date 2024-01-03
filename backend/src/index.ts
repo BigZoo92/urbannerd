@@ -3,7 +3,7 @@ import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
 import router from "./routes/routes";
-import { corsOptions, port } from "./constant";
+import { corsOptions, port, upload } from "./constant";
 import path from "path";
 import compression from "compression";
 import morgan from "morgan";
@@ -33,7 +33,7 @@ app.get("/", (_, res) => {
 });
 
 // ROUTES
-app.use("/api", router);
+app.use("/api", upload, router);
 
 // START THE SERVER
 app.listen(port, () => {
