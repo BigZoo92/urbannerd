@@ -33,7 +33,7 @@ app.get("/", (_, res) => {
 });
 
 // ROUTES
-app.use("/api", upload, router);
+app.use("/api", router);
 
 // START THE SERVER
 app.listen(port, () => {
