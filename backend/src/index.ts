@@ -25,7 +25,7 @@ app.use(compression());
 app.use(cors(corsOptions));
 
 // STATIC ASSETS
-app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
+app.use("/uploads", express.static("./uploads"));
 
 // BACKEND'S HOME
 app.get("/", (_, res) => {
