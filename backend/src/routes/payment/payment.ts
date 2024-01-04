@@ -1,43 +1,45 @@
-import Stripe from 'stripe';
-import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { jwtToken } from '../../constant';
-import { UserJwtPayload } from '../../types';
+import Stripe from "stripe";
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { jwtToken } from "../../constant";
+import { UserJwtPayload } from "../../types";
 
 export const payment = async (req: Request, res: Response) => {
   const { price, productId, productName, productImage } = req.body;
 
-  const token = req.headers.authorization?.split(' ')[1];
+  const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
-    return res.status(401).send({ error: 'Token not provided' });
+    return res.status(401).send({ error: "Token not provided" });
   }
-    //@ts-ignore
-    const user: UserJwtPayload  = jwt.verify(token, jwtToken);
-    const email = user.email;
-  
+  //@ts-ignore
+  const user: UserJwtPayload = jwt.verify(token, jwtToken);
+  const email = user.email;
+
   if (!process.env.STRIPE_SECRET_KEY) {
-    return res.status(500).send({ error: 'Stripe secret key not found' });
+    return res.status(500).send({ error: "Stripe secret key not found" });
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: 'eur',
-          product_data: {
-            name: productName,
-            // images: [productImage]
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "eur",
+            product_data: {
+              name: productName,
+              // images: [productImage]
+            },
+            unit_amount: price,
           },
-          unit_amount: price,
+          quantity: 1,
         },
-        quantity: 1,
-      }],
-      mode: 'payment',
+      ],
+      mode: "payment",
       customer_email: email,
-      success_url: `${req.headers.origin}/shop/${productId}?success=true`,
-      cancel_url: `${req.headers.origin}/shop/${productId}?success=false`,
+      success_url: `myapp://shop/${productId}?success=true`,
+      cancel_url: `myapp://shop/${productId}?success=false`,
     });
     res.send({ session: session });
   } catch (error) {
