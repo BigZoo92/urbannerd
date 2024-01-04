@@ -38,8 +38,8 @@ export const payment = async (req: Request, res: Response) => {
       ],
       mode: "payment",
       customer_email: email,
-      success_url: `urbannerd://shop/${productId}?success=true`,
-      cancel_url: `urbannerd://shop/${productId}?success=false`,
+      success_url: `myapp://shop/${productId}?success=true`,
+      cancel_url: `myapp://shop/${productId}?success=false`,
     });
     res.send({ session: session });
   } catch (error) {
