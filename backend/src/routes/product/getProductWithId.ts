@@ -1,15 +1,19 @@
-import { Request, Response } from 'express';
-import { prisma } from '../..';
+import { Request, Response } from "express";
+import { prisma } from "../..";
 
-export const getProductWithId = async (req: Request<{}, {}, any>, res: Response) => {
+export const getProductWithId = async (
+  req: Request<{}, {}, any>,
+  res: Response
+) => {
   //@ts-ignore
-  const {productId} = req.params;
+  const { productId } = req.params;
+  console.log(productId);
   try {
     const product = await prisma.product.findFirst({
-        where: { id: { equals: parseInt(productId) } },
-      });
-      await prisma.$disconnect();
-    res.status(201).json({product: product});
+      where: { id: { equals: parseInt(productId) } },
+    });
+    await prisma.$disconnect();
+    res.status(201).json({ product: product });
   } catch (error: any) {
     console.error(error);
   }
