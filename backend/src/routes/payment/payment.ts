@@ -29,7 +29,7 @@ export const payment = async (req: Request, res: Response) => {
             currency: "eur",
             product_data: {
               name: productName,
-              // images: [productImage]
+              images: [productImage],
             },
             unit_amount: price,
           },
@@ -38,8 +38,8 @@ export const payment = async (req: Request, res: Response) => {
       ],
       mode: "payment",
       customer_email: email,
-      success_url: `myapp://shop/${productId}?success=true`,
-      cancel_url: `myapp://shop/${productId}?success=false`,
+      success_url: `https://urbannerd-frontend.vercel.app/shop/${productId}?success=true`,
+      cancel_url: `https://urbannerd-frontend.vercel.app/shop/${productId}?success=false`,
     });
     res.send({ session: session });
   } catch (error) {
