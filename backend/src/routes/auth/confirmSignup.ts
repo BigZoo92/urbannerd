@@ -3,11 +3,6 @@ import jwt from "jsonwebtoken";
 import { jwtToken } from "../../constant";
 import { prisma } from "../..";
 
-enum StatusUser {
-  Unconfirmed = "Unconfirmed",
-  Confirmed = "Confirmed",
-}
-
 export const confirmSignup = async (req: Request, res: Response) => {
   const { token } = req.query;
 
@@ -17,14 +12,19 @@ export const confirmSignup = async (req: Request, res: Response) => {
 
   try {
     const decodedToken = jwt.verify(token as string, jwtToken) as {
+      userId: number;
+      username: string;
+      website: string;
+      bio: string;
+      pp: string;
       email: string;
     };
 
-    const email = decodedToken.email;
+    const { email, userId } = decodedToken;
 
     const existingUser = await prisma.user.findUnique({
       where: {
-        email: email,
+        id: userId,
       },
     });
 
@@ -34,12 +34,13 @@ export const confirmSignup = async (req: Request, res: Response) => {
 
     await prisma.user.update({
       where: {
-        email: email,
+        id: userId,
       },
       data: {
-        status: StatusUser.Confirmed,
+        status: "Confirmed",
       },
     });
+
     await prisma.$disconnect();
     res.redirect("https://urbannerd-frontend.vercel.app");
   } catch (error) {
