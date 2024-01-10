@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { jwtToken } from "../../constant";
 import { prisma } from "../..";
+import { searchUserByUsernameOrEmail } from "../../utils";
 
 export const confirmSignup = async (req: Request, res: Response) => {
   const { token } = req.query;
@@ -40,9 +41,34 @@ export const confirmSignup = async (req: Request, res: Response) => {
         status: "Confirmed",
       },
     });
-
+    const user = await searchUserByUsernameOrEmail(email);
     await prisma.$disconnect();
-    res.redirect("https://urbannerd-frontend.vercel.app");
+    if (!user?.id) return;
+    jwt.sign(
+      {
+        userId: user.id,
+        username: user.username,
+        website: user.website,
+        bio: user.bio,
+        pp: user.pp,
+        email: user.email,
+      },
+      jwtToken,
+      { expiresIn: "7d" },
+      (err, token) => {
+        if (err) {
+          console.error("Erreur lors de la génération du token :", err);
+          return res
+            .status(500)
+            .json({ message: "Erreur lors de la génération du token" });
+        } else {
+          console.log(token);
+          res.redirect(
+            `https://urbannerd-frontend.vercel.app/auth?token=${token}`
+          );
+        }
+      }
+    );
   } catch (error) {
     console.error("Erreur lors de la confirmation d'inscription :", error);
     res
