@@ -14,10 +14,32 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendConfirmSignupMail = async (email: string) => {
-  const emailToken = jwt.sign({ email }, jwtToken, {
-    expiresIn: "1d",
-  });
+interface SendConfirmSignupMailProps {
+  id: number;
+  username: string;
+  website: string;
+  bio: string;
+  pp: string;
+  email: string;
+}
+
+export const sendConfirmSignupMail = async (
+  user: SendConfirmSignupMailProps
+) => {
+  const emailToken = jwt.sign(
+    {
+      userId: user.id,
+      username: user.username,
+      website: user.website,
+      bio: user.bio,
+      pp: user.pp,
+      email: user.email,
+    },
+    jwtToken,
+    {
+      expiresIn: "1d",
+    }
+  );
 
   const emailConfirmationLink = `https://urbannerd-production.up.railway.app/api/auth/confirmSignup?token=${emailToken}`;
 
@@ -35,7 +57,7 @@ export const sendConfirmSignupMail = async (email: string) => {
 
   await transporter.sendMail({
     from: `${process.env.MAIL}`,
-    to: email,
+    to: user.email,
     subject: "Confirmation d'inscription",
     html: emailHTML,
   });

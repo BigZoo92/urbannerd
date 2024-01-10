@@ -38,9 +38,19 @@ export const signup = async (
         status: StatusUser.Unconfirmed,
       },
     });
+
+    const user = await searchUserByUsernameOrEmail(email);
     await prisma.$disconnect();
     try {
-      await sendConfirmSignupMail(email);
+      if (!user?.id) return;
+      await sendConfirmSignupMail({
+        id: user?.id,
+        username: user?.username || "",
+        website: user?.website || "",
+        bio: user?.bio || "",
+        pp: user?.pp || "",
+        email: user?.email || "",
+      });
     } catch (error) {
       console.error(
         "Erreur lors de l'envoi de l'e-mail de confirmation :",
