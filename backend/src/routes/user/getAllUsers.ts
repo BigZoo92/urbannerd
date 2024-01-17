@@ -3,11 +3,14 @@ import { prisma } from "../..";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const userIds = await prisma.user.findMany({
+    const users = await prisma.user.findMany({
       select: {
         id: true,
       },
     });
+
+    const userIds = users.map((user) => user.id);
+
     await prisma.$disconnect();
     res.status(200).json(userIds);
   } catch (error) {
