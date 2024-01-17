@@ -9,7 +9,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
       },
     });
 
-    const userIds = users.map((user) => user.id.toString());
+    const userIds = users.map((user: any) => user.id.toString());
     await prisma.$disconnect();
     res.status(200).json(userIds);
   } catch (error) {
